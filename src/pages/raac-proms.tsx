@@ -1060,11 +1060,6 @@ function PatientPortal({ state }: { state: any }){
     </div>
   );
 }
-      </div>
-      <div className="mt-3 text-xs text-neutral-500">Les données sont affichées à titre informatif.</div>
-    </Card>
-  );
-}
 
 // --- Added tests for csvEscape ---
 (function(){
