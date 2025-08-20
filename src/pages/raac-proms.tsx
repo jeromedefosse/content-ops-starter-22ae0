@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Plus, Trash2, Download, Upload, Eye, ClipboardList, PlayCircle, FileDown, Loader2, Users, Mail, Calendar, BarChart3, ExternalLink } from "lucide-react";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, BarChart, Bar, PieChart, Pie, Cell } from "recharts";
 import Head from 'next/head';
 import { Calendar, Users, BarChart3, FileText, Clock, CheckCircle, AlertCircle, TrendingUp, Download, Send, Phone, Mail, MapPin, User, Activity, Target, Linkedin, Instagram, Facebook, Menu } from 'lucide-react';
 /**
@@ -37,6 +37,18 @@ const TIMEPOINTS = [
   { id: "m1", label: "1 mois", offsetDays: 30 },
   { id: "m6", label: "6 mois", offsetDays: 180 },
   { id: "y1", label: "1 an", offsetDays: 365 },
+];
+
+const completionData = [
+    { name: 'Complétés', value: 78, color: '#28A745' },
+    { name: 'En attente', value: 15, color: '#FFC107' },
+    { name: 'En retard', value: 7, color: '#DC3545' }
+];
+
+const specialtyData = [
+    { specialty: 'Hanche', patients: 45, avgOxford: 38, avgWomac: 22 },
+    { specialty: 'Genou', patients: 34, avgOxford: 35, avgWomac: 25 },
+    { specialty: 'Épaule', patients: 21, avgOxford: 40, avgWomac: 20 }
 ];
 
 function uid() { return Math.random().toString(36).slice(2, 9); }
@@ -210,6 +222,8 @@ const WOMAC_OPTIONS = [0,1,2,3,4];
 export default function RaacPromsApp() {
   const [view, setView] = useState("patients"); // patients | collect | stats | settings | portal
   const [saving, setSaving] = useState(false);
+  const [selectedTimeframe, setSelectedTimeframe] = useState('6mois');
+  const [showExportModal, setShowExportModal] = useState(false);
   const [state, setState] = useState(() => load() || {
     patients: [], // {id, nom, prenom, naissance, articulation, email, opDate, token}
     measures: [], // {id, patientId, timepoint, dateISO, oxford:{}, womac:{}, comment, scores:{oxford,womac}}
@@ -742,6 +756,8 @@ function MeasureBlock({ patient, tp, state, setState }: { patient: any; tp: any;
 // -------------------- Statistiques globales --------------------
 function Stats({ state }: { state: any }){
   const [artFilter, setArtFilter] = useState('all');
+  const [selectedTimeframe, setSelectedTimeframe] = useState('6mois');
+  const [showExportModal, setShowExportModal] = useState(false);
   const filteredMeasures = (tpId: string) => state.measures.filter((m: any)=>{
     if(m.timepoint!==tpId) return false;
     if(artFilter==='all') return true;
@@ -775,6 +791,148 @@ function Stats({ state }: { state: any }){
           </div>
         </div>
         
+        {/* Filtres et contrôles */}
+        <div className="card-pcbs p-6 mb-8">
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div className="flex items-center gap-4">
+              <label className="text-sm font-medium text-pcbs">Période d'analyse :</label>
+              <select 
+                value={selectedTimeframe}
+                onChange={(e) => setSelectedTimeframe(e.target.value)}
+                className="input-pcbs"
+              >
+                <option value="3mois">3 mois</option>
+                <option value="6mois">6 mois</option>
+                <option value="12mois">12 mois</option>
+                <option value="24mois">24 mois</option>
+              </select>
+            </div>
+            <div className="flex gap-3">
+              <button 
+                onClick={() => setShowExportModal(true)}
+                className="btn-pcbs-secondary flex items-center gap-2"
+              >
+                <Download className="h-4 w-4" />
+                Exporter
+              </button>
+              <button className="btn-pcbs flex items-center gap-2">
+                <Bell className="h-4 w-4" />
+                Rappels (12)
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Graphiques */}
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 mb-8">
+          <div className="card-pcbs p-6">
+            <h3 className="text-lg font-semibold text-pcbs mb-4">Évolution des Scores Oxford</h3>
+            <ResponsiveContainer width="100%" height={300}>
+              <LineChart data={rows}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
+                <XAxis dataKey="timepoint" stroke="#666" />
+                <YAxis stroke="#666" />
+                <Tooltip 
+                  contentStyle={{ 
+                    backgroundColor: '#fff', 
+                    border: '1px solid #ddd',
+                    borderRadius: '8px'
+                  }}
+                />
+                <Legend />
+                <Line 
+                  type="monotone" 
+                  dataKey="avgOxford" 
+                  stroke="#004d71" 
+                  strokeWidth={3} 
+                  dot={{ fill: '#004d71', strokeWidth: 2, r: 6 }} 
+                  name="Oxford Moyen"
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+
+          <div className="card-pcbs p-6">
+            <h3 className="text-lg font-semibold text-pcbs mb-4">Évolution des Scores WOMAC</h3>
+            <ResponsiveContainer width="100%" height={300}>
+              <LineChart data={rows}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
+                <XAxis dataKey="timepoint" stroke="#666" />
+                <YAxis stroke="#666" />
+                <Tooltip 
+                  contentStyle={{ 
+                    backgroundColor: '#fff', 
+                    border: '1px solid #ddd',
+                    borderRadius: '8px'
+                  }}
+                />
+                <Legend />
+                <Line 
+                  type="monotone" 
+                  dataKey="avgWOMAC" 
+                  stroke="#f08486" 
+                  strokeWidth={3} 
+                  dot={{ fill: '#f08486', strokeWidth: 2, r: 6 }} 
+                  name="WOMAC Moyen"
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        {/* Analyses par spécialité et taux de complétude */}
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 mb-8">
+          <div className="card-pcbs p-6">
+            <h3 className="text-lg font-semibold text-pcbs mb-4">Analyse par Spécialité</h3>
+            <ResponsiveContainer width="100%" height={300}>
+              <BarChart data={specialtyData}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
+                <XAxis dataKey="specialty" stroke="#666" />
+                <YAxis stroke="#666" />
+                <Tooltip 
+                  contentStyle={{ 
+                    backgroundColor: '#fff', 
+                    border: '1px solid #ddd',
+                    borderRadius: '8px'
+                  }}
+                />
+                <Legend />
+                <Bar dataKey="patients" fill="#004d71" name="Nb Patients" />
+                <Bar dataKey="avgOxford" fill="#f08486" name="Oxford Moyen" />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+
+          <div className="card-pcbs p-6">
+            <h3 className="text-lg font-semibold text-pcbs mb-4">Taux de Complétude</h3>
+            <ResponsiveContainer width="100%" height={300}>
+              <PieChart>
+                <Pie
+                  data={completionData}
+                  cx="50%"
+                  cy="50%"
+                  innerRadius={60}
+                  outerRadius={100}
+                  paddingAngle={5}
+                  dataKey="value"
+                >
+                  {completionData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
+                  ))}
+                </Pie>
+                <Tooltip 
+                  contentStyle={{ 
+                    backgroundColor: '#fff', 
+                    border: '1px solid #ddd',
+                    borderRadius: '8px'
+                  }}
+                />
+                <Legend />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+        
         <div className="overflow-x-auto">
           <table className="min-w-full">
             <thead>
@@ -801,6 +959,57 @@ function Stats({ state }: { state: any }){
           </tbody>
         </table>
         </div>
+
+        {/* Modal d'export */}
+        {showExportModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white rounded-lg p-6 w-full max-w-md mx-4">
+              <h3 className="text-lg font-semibold text-pcbs mb-4">Exporter les Données</h3>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-pcbs mb-2">Format d'export</label>
+                  <select className="input-pcbs w-full">
+                    <option value="csv">CSV (Excel)</option>
+                    <option value="pdf">PDF (Rapport)</option>
+                    <option value="json">JSON (Données brutes)</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-pcbs mb-2">Données à inclure</label>
+                  <div className="space-y-2">
+                    <label className="flex items-center">
+                      <input type="checkbox" className="mr-2" defaultChecked />
+                      <span className="text-sm">Scores Oxford</span>
+                    </label>
+                    <label className="flex items-center">
+                      <input type="checkbox" className="mr-2" defaultChecked />
+                      <span className="text-sm">Scores WOMAC</span>
+                    </label>
+                    <label className="flex items-center">
+                      <input type="checkbox" className="mr-2" />
+                      <span className="text-sm">Données démographiques</span>
+                    </label>
+                    <label className="flex items-center">
+                      <input type="checkbox" className="mr-2" />
+                      <span className="text-sm">Historique des rappels</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div className="flex gap-3 mt-6">
+                <button 
+                  onClick={() => setShowExportModal(false)}
+                  className="btn-pcbs-secondary flex-1"
+                >
+                  Annuler
+                </button>
+                <button className="btn-pcbs flex-1">
+                  Télécharger
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </Card>
       
       <div className="grid gap-6 md:grid-cols-3">
@@ -975,20 +1184,7 @@ function Settings({ state, setState }: { state: any; setState: any }){
 
 // -------------------- Portail patient (lecture seule) --------------------
 function PatientPortal({ state }: { state: any }){
-            <main className="max-w-7xl mx-auto px-4 py-8 bg-white min-h-screen">
-                {/* Page Title */}
-                <div className="mb-8 text-center">
-                    <h1 className="text-4xl font-bold text-pcbs mb-4">
-                        {userRole === 'admin' ? 'RAAC PROMs - Administration' : 'Mon Suivi RAAC'}
-                    </h1>
-                    <p className="text-lg text-pcbs-secondary">
-                        {userRole === 'admin' 
-                            ? 'Système de suivi des Patient Reported Outcome Measures'
-                            : 'Suivi de votre récupération après chirurgie'
-                        }
-                    </p>
-                </div>
-                
+  const url = new URL(window.location.href);
   const pid = url.searchParams.get("patient");
   const tok = url.searchParams.get("token");
   const p = state.patients.find((x: any)=>x.id===pid);
@@ -996,58 +1192,22 @@ function PatientPortal({ state }: { state: any }){
     return (
       <Card>
         <div className="text-center py-12">
-            <div className="bg-pcbs-gradient text-white p-8 rounded-2xl">
-            <footer className="pcbs-footer mt-16">
-                <div className="pcbs-header-top">
-                    <div className="max-w-7xl mx-auto px-4">
-                        <div className="flex items-center justify-between text-sm">
-                            <h4 className="text-xl font-bold mb-4">Nos services</h4>
-                            <ul className="space-y-2">
-                                <li><a href="#" className="hover:underline">Mon Séjour</a></li>
-                                <li><a href="#" className="hover:underline">Nos Spécialistes</a></li>
-                                <li><a href="#" className="hover:underline">Notre Démarche Qualité</a></li>
-                    <div className="p-6 border-b border-gray-100">
-                        <h3 className="text-xl font-semibold text-pcbs mb-2">Évolution des Scores</h3>
-                        <p className="text-pcbs-secondary">Suivi longitudinal de votre récupération</p>
-                        <div>
-                            <h4 className="text-xl font-bold mb-4">Nous contacter</h4>
-                            <div className="space-y-2 text-sm">
-                                <div className="flex items-center space-x-2">
-                                    <Phone className="w-4 h-4" />
-                                <XAxis dataKey="timepoint" stroke="#424242" />
-                                <YAxis stroke="#424242" />
-                                <div className="flex items-center space-x-2">
-                                    <Mail className="w-4 h-4" />
-                                    <span>contact@pcbs.fr</span>
-                                        border: '1px solid #dddddd',
-                                <div className="flex items-center space-x-2">
-                                    <MapPin className="w-4 h-4" />
-                                    <span>7 Rue Leonce Goyetche, 64500 Saint-Jean-de-Luz</span>
-                                </div>
-                                <Line type="monotone" dataKey="oxford" stroke="#004d71" strokeWidth={3} dot={{ fill: '#004d71', strokeWidth: 2, r: 6 }} />
-                                <Line type="monotone" dataKey="womac" stroke="#f08486" strokeWidth={3} dot={{ fill: '#f08486', strokeWidth: 2, r: 6 }} />
-                            <div className="pcbs-social-icons">
-                                <a href="https://www.facebook.com/PolycliniqueCoteBasqueSud/">
-                                    <Facebook className="w-5 h-5" />
-                                </a>
-                                <div className="w-3 h-3 bg-pcbs rounded-full"></div>
-                                <span className="text-sm text-pcbs-secondary">Score Oxford</span>
-                                </a>
-                                <a href="https://www.linkedin.com/company/polyclinique-cote-basque-sud/">
-                                <div className="w-3 h-3 bg-pcbs-secondary rounded-full"></div>
-                                <span className="text-sm text-pcbs-secondary">Score WOMAC</span>
-                            </div>
-                        </div>
-                        <div>
-                            <h4 className="text-xl font-bold mb-4">RAAC PROMs</h4>
-                            <p className="text-sm opacity-90 mb-4">
-                                <span>📞 Urgences : 05 59 51 74 00</span>
-                                <span>📞 Contact : 05 59 51 63 63</span>
-                            </div>
-                            <p className="text-sm opacity-90">
-                                Système de suivi des Patient Reported Outcome Measures 
-                                pour l'amélioration continue de la qualité des soins.
-                            </p>
+          <div className="text-red-600 mb-4">
+            <AlertCircle size={64} className="mx-auto mb-4"/>
+            <h3 className="text-lg font-medium">Accès non autorisé</h3>
+            <p>Le lien utilisé n'est pas valide ou a expiré.</p>
+          </div>
+        </div>
+      </Card>
+    );
+  }
+
+  const measures = TIMEPOINTS.map(tp => state.measures.find((m: any)=>m.patientId===p.id && m.timepoint===tp.id) || null);
+  const data = TIMEPOINTS.map((tp, i) => ({ name: tp.label, Oxford: measures[i]?.scores?.oxford ?? null, WOMAC: measures[i]?.scores?.womac ?? null }));
+
+  return (
+    <div className="space-y-6">
+      <Card>
         <div className="bg-pcbs-gradient p-6 rounded-lg text-white mb-6">
           <h2 className="text-2xl font-bold mb-2">Bonjour {p.prenom} {p.nom}</h2>
           <p className="opacity-90">Voici l'évolution de votre récupération post-opératoire</p>
@@ -1066,48 +1226,43 @@ function PatientPortal({ state }: { state: any }){
                   <Legend />
                   <Line type="monotone" dataKey="Oxford" stroke="var(--pcbs-primary)" strokeWidth={3} dot={{ fill: 'var(--pcbs-primary)', strokeWidth: 2, r: 6 }} />
                   <Line type="monotone" dataKey="WOMAC" stroke="var(--pcbs-accent)" strokeWidth={3} dot={{ fill: 'var(--pcbs-accent)', strokeWidth: 2, r: 6 }} />
-                                src="https://polyclinique-cotebasquesud.fr/wp-content/uploads/2022/07/cropped-POLYCLINIQUE-COTE-BASQUE-SUD-ICONE.png" 
+                </LineChart>
               </ResponsiveContainer>
-                                className="pcbs-logo h-16 w-16"
+            </div>
+            <div className="flex items-center gap-6 mt-4">
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 bg-pcbs rounded-full"></div>
+                <span className="text-sm text-pcbs-secondary">Score Oxford</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 bg-pcbs-secondary rounded-full"></div>
+                <span className="text-sm text-pcbs-secondary">Score WOMAC</span>
+              </div>
+            </div>
           </div>
           
           <div>
             <h3 className="text-lg font-semibold text-pcbs mb-4">Votre progression</h3>
             <div className="space-y-4">
-                                <div className="text-2xl font-bold text-pcbs">Polyclinique</div>
-                        <Users className="w-8 h-8 text-pcbs" />
+              {TIMEPOINTS.map((tp, i) => {
+                const measure = measures[i];
                 const completed = !!measure;
                 return (
                   <div key={tp.id} className={`p-4 rounded-lg border-l-4 ${
-                        {/* Navigation */}
-                        <nav className="hidden md:flex items-center space-x-8">
-                            <a href="#" className="pcbs-nav-link">La Polyclinique</a>
-                            <p className="text-sm font-medium text-pcbs-secondary">Questionnaires Complétés</p>
-                            <p className="text-3xl font-bold text-pcbs">
-                            <a href="#" className="pcbs-nav-link">Infos pratiques</a>
-                        </nav>
-                        
-                        <FileText className="w-8 h-8 text-pcbs-success" />
+                    completed ? "border-l-pcbs-success bg-green-50" : "border-l-pcbs-warning bg-yellow-50"
                   }`}>
                     <div className="flex items-center justify-between">
-                                className="btn-pcbs-secondary text-sm hidden md:block"
-                            <p className="text-sm font-medium text-pcbs-secondary">Patients Actifs</p>
-                            <p className="text-3xl font-bold text-pcbs">{patients.length}</p>
-                          <div className="text-sm text-pcbs-secondary mt-1">
-                            <p className="text-sm font-medium text-pcbs-secondary">Rappels En Attente</p>
-                            <p className="text-3xl font-bold text-pcbs">{pendingReminders.length}</p>
-                                className="btn-pcbs text-sm hidden md:block"
-                        <Clock className="w-8 h-8 text-pcbs-warning" />
+                      <div>
+                        <div className="font-medium text-pcbs">{tp.label}</div>
+                        <div className="text-sm text-pcbs-secondary mt-1">
+                          {completed ? `Complété le ${fmtDate(measure.dateISO)}` : "En attente"}
+                        </div>
+                      </div>
                       <span className={completed ? "badge-success" : "badge-warning"}>
                         {completed ? "Complété" : "En attente"}
-                            
-                            {/* Mobile Menu Button */}
-                            <button className="md:hidden p-2">
-                                <Menu className="w-6 h-6 text-pcbs" />
-                            <p className="text-sm font-medium text-pcbs-secondary">Taux de Complétude</p>
-                            <p className="text-3xl font-bold text-pcbs">{completionRate}%</p>
-                        <div className="text-3xl font-bold">{patients.length}</div>
-                        <TrendingUp className="w-8 h-8 text-pcbs" />
+                      </span>
+                    </div>
+                  </div>
                 );
               })}
             </div>
