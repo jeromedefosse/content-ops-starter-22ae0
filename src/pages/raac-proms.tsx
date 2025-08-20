@@ -1006,36 +1006,36 @@ function PatientPortal({ state }: { state: any }){
                                 <li><a href="#" className="hover:underline">Mon Séjour</a></li>
                                 <li><a href="#" className="hover:underline">Nos Spécialistes</a></li>
                                 <li><a href="#" className="hover:underline">Notre Démarche Qualité</a></li>
-                                <li><a href="#" className="hover:underline">Notre établissement</a></li>
-                            </ul>
-                        </div>
+                    <div className="p-6 border-b border-gray-100">
+                        <h3 className="text-xl font-semibold text-pcbs mb-2">Évolution des Scores</h3>
+                        <p className="text-pcbs-secondary">Suivi longitudinal de votre récupération</p>
                         <div>
                             <h4 className="text-xl font-bold mb-4">Nous contacter</h4>
                             <div className="space-y-2 text-sm">
                                 <div className="flex items-center space-x-2">
                                     <Phone className="w-4 h-4" />
-                                    <span>05 59 51 63 63</span>
-                                </div>
+                                <XAxis dataKey="timepoint" stroke="#424242" />
+                                <YAxis stroke="#424242" />
                                 <div className="flex items-center space-x-2">
                                     <Mail className="w-4 h-4" />
                                     <span>contact@pcbs.fr</span>
-                                </div>
+                                        border: '1px solid #dddddd',
                                 <div className="flex items-center space-x-2">
                                     <MapPin className="w-4 h-4" />
                                     <span>7 Rue Leonce Goyetche, 64500 Saint-Jean-de-Luz</span>
                                 </div>
-                            </div>
-                            <h4 className="text-xl font-bold mb-4 mt-6">Suivez notre actualité</h4>
+                                <Line type="monotone" dataKey="oxford" stroke="#004d71" strokeWidth={3} dot={{ fill: '#004d71', strokeWidth: 2, r: 6 }} />
+                                <Line type="monotone" dataKey="womac" stroke="#f08486" strokeWidth={3} dot={{ fill: '#f08486', strokeWidth: 2, r: 6 }} />
                             <div className="pcbs-social-icons">
                                 <a href="https://www.facebook.com/PolycliniqueCoteBasqueSud/">
                                     <Facebook className="w-5 h-5" />
                                 </a>
-                                <a href="https://www.instagram.com/polyclinique_cote_basque_sud/">
-                                    <Instagram className="w-5 h-5" />
+                                <div className="w-3 h-3 bg-pcbs rounded-full"></div>
+                                <span className="text-sm text-pcbs-secondary">Score Oxford</span>
                                 </a>
                                 <a href="https://www.linkedin.com/company/polyclinique-cote-basque-sud/">
-                                    <Linkedin className="w-5 h-5" />
-                                </a>
+                                <div className="w-3 h-3 bg-pcbs-secondary rounded-full"></div>
+                                <span className="text-sm text-pcbs-secondary">Score WOMAC</span>
                             </div>
                         </div>
                         <div>

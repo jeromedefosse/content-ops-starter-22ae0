@@ -20,7 +20,13 @@ module.exports = {
                 dark: themeStyle.dark,
                 neutral: themeStyle.neutral,
                 neutralAlt: themeStyle.neutralAlt,
-                primary: themeStyle.primary
+                primary: themeStyle.primary,
+                'pcbs': '#004d71',
+                'pcbs-secondary': '#f08486',
+                'pcbs-accent': '#ebf3f4',
+                'pcbs-success': '#28A745',
+                'pcbs-warning': '#FFC107',
+                'pcbs-error': '#DC3545'
             },
             fontFamily: {
                 sans: ['Inter', 'sans-serif'],
