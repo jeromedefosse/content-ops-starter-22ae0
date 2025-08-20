@@ -1,0 +1,43 @@
+{
+  "admins": [
+    {
+      "email": "admin@pcbs.fr",
+      "full_name": "admin"
+    }
+  ],
+  "doctors": [],
+  "pending_review": [
+    {
+      "email": "sfagot@pcbs.fr",
+      "full_name": "Stéphane FAGOT"
+    },
+    {
+      "email": "chefdebloc@pcbs.fr",
+      "full_name": "Marie TARDIF"
+    },
+    {
+      "email": "flascano@pcbs.fr",
+      "full_name": "Florence LASCANO"
+    },
+    {
+      "email": "ygautronneau@pcbs.fr",
+      "full_name": "Yoann GAUTRONNEAU"
+    },
+    {
+      "email": "docteurameliefaraud@gmail.com",
+      "full_name": "Amélie FARAUD"
+    },
+    {
+      "email": "dieteticienne@pcbs.fr",
+      "full_name": "Charlotte GUSCHLBAUER"
+    },
+    {
+      "email": "cpajot@pcbs.fr",
+      "full_name": "Céline PAJOT"
+    },
+    {
+      "email": "assistante.sociale@pcbs.fr",
+      "full_name": "Assistante Sociale"
+    }
+  ]
+}
