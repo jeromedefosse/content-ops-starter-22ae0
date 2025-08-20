@@ -14,11 +14,13 @@
         "dayjs": "^1.11.11",
         "front-matter": "^4.0.2",
         "glob": "^10.4.2",
+        "lucide-react": "^0.540.0",
         "markdown-to-jsx": "^7.7.3",
         "marked": "^14.1.2",
         "next": "15.4.6",
         "react": "^19.1.0",
         "react-dom": "^19.1.0",
+        "recharts": "^3.1.2",
         "swiper": "^11.1.4",
         "tailwindcss": "^3.4.3"
     },
