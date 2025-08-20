@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Plus, Trash2, Download, Upload, Eye, ClipboardList, PlayCircle, FileDown, Loader2, Users, Mail, Calendar, BarChart3, ExternalLink } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
 import Head from 'next/head';
-
+import { Calendar, Users, BarChart3, FileText, Clock, CheckCircle, AlertCircle, TrendingUp, Download, Send, Phone, Mail, MapPin, User, Activity, Target, Linkedin, Instagram, Facebook, Menu } from 'lucide-react';
 /**
  * RAAC PROMs – Patients, Oxford & WOMAC, Rappels email, Portail patient, Statistiques
  * (MVP FRONT-END – prêt pour branchement SMTP/API côté serveur)
@@ -975,7 +975,20 @@ function Settings({ state, setState }: { state: any; setState: any }){
 
 // -------------------- Portail patient (lecture seule) --------------------
 function PatientPortal({ state }: { state: any }){
-  const url = new URL(window.location.href);
+            <main className="max-w-7xl mx-auto px-4 py-8 bg-white min-h-screen">
+                {/* Page Title */}
+                <div className="mb-8 text-center">
+                    <h1 className="text-4xl font-bold text-pcbs mb-4">
+                        {userRole === 'admin' ? 'RAAC PROMs - Administration' : 'Mon Suivi RAAC'}
+                    </h1>
+                    <p className="text-lg text-pcbs-secondary">
+                        {userRole === 'admin' 
+                            ? 'Système de suivi des Patient Reported Outcome Measures'
+                            : 'Suivi de votre récupération après chirurgie'
+                        }
+                    </p>
+                </div>
+                
   const pid = url.searchParams.get("patient");
   const tok = url.searchParams.get("token");
   const p = state.patients.find((x: any)=>x.id===pid);
@@ -983,20 +996,58 @@ function PatientPortal({ state }: { state: any }){
     return (
       <Card>
         <div className="text-center py-12">
-          <div className="text-6xl mb-4">🔒</div>
-          <h3 className="text-lg font-semibold text-pcbs-error mb-2">Accès refusé</h3>
-          <p className="text-pcbs-secondary">Lien invalide ou expiré. Contactez votre équipe médicale.</p>
-        </div>
-      </Card>
-    ); 
-  }
-  
-  const measures = TIMEPOINTS.map(tp => state.measures.find((m: any)=>m.patientId===p.id && m.timepoint===tp.id) || null);
-  const data = TIMEPOINTS.map((tp, i) => ({ name: tp.label, Oxford: measures[i]?.scores?.oxford ?? null, WOMAC: measures[i]?.scores?.womac ?? null }));
-  
-  return (
-    <div className="space-y-6">
-      <Card>
+            <div className="bg-pcbs-gradient text-white p-8 rounded-2xl">
+            <footer className="pcbs-footer mt-16">
+                <div className="pcbs-header-top">
+                    <div className="max-w-7xl mx-auto px-4">
+                        <div className="flex items-center justify-between text-sm">
+                            <h4 className="text-xl font-bold mb-4">Nos services</h4>
+                            <ul className="space-y-2">
+                                <li><a href="#" className="hover:underline">Mon Séjour</a></li>
+                                <li><a href="#" className="hover:underline">Nos Spécialistes</a></li>
+                                <li><a href="#" className="hover:underline">Notre Démarche Qualité</a></li>
+                                <li><a href="#" className="hover:underline">Notre établissement</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 className="text-xl font-bold mb-4">Nous contacter</h4>
+                            <div className="space-y-2 text-sm">
+                                <div className="flex items-center space-x-2">
+                                    <Phone className="w-4 h-4" />
+                                    <span>05 59 51 63 63</span>
+                                </div>
+                                <div className="flex items-center space-x-2">
+                                    <Mail className="w-4 h-4" />
+                                    <span>contact@pcbs.fr</span>
+                                </div>
+                                <div className="flex items-center space-x-2">
+                                    <MapPin className="w-4 h-4" />
+                                    <span>7 Rue Leonce Goyetche, 64500 Saint-Jean-de-Luz</span>
+                                </div>
+                            </div>
+                            <h4 className="text-xl font-bold mb-4 mt-6">Suivez notre actualité</h4>
+                            <div className="pcbs-social-icons">
+                                <a href="https://www.facebook.com/PolycliniqueCoteBasqueSud/">
+                                    <Facebook className="w-5 h-5" />
+                                </a>
+                                <a href="https://www.instagram.com/polyclinique_cote_basque_sud/">
+                                    <Instagram className="w-5 h-5" />
+                                </a>
+                                <a href="https://www.linkedin.com/company/polyclinique-cote-basque-sud/">
+                                    <Linkedin className="w-5 h-5" />
+                                </a>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 className="text-xl font-bold mb-4">RAAC PROMs</h4>
+                            <p className="text-sm opacity-90 mb-4">
+                                <span>📞 Urgences : 05 59 51 74 00</span>
+                                <span>📞 Contact : 05 59 51 63 63</span>
+                            </div>
+                            <p className="text-sm opacity-90">
+                                Système de suivi des Patient Reported Outcome Measures 
+                                pour l'amélioration continue de la qualité des soins.
+                            </p>
         <div className="bg-pcbs-gradient p-6 rounded-lg text-white mb-6">
           <h2 className="text-2xl font-bold mb-2">Bonjour {p.prenom} {p.nom}</h2>
           <p className="opacity-90">Voici l'évolution de votre récupération post-opératoire</p>
@@ -1015,35 +1066,48 @@ function PatientPortal({ state }: { state: any }){
                   <Legend />
                   <Line type="monotone" dataKey="Oxford" stroke="var(--pcbs-primary)" strokeWidth={3} dot={{ fill: 'var(--pcbs-primary)', strokeWidth: 2, r: 6 }} />
                   <Line type="monotone" dataKey="WOMAC" stroke="var(--pcbs-accent)" strokeWidth={3} dot={{ fill: 'var(--pcbs-accent)', strokeWidth: 2, r: 6 }} />
-                </LineChart>
+                                src="https://polyclinique-cotebasquesud.fr/wp-content/uploads/2022/07/cropped-POLYCLINIQUE-COTE-BASQUE-SUD-ICONE.png" 
               </ResponsiveContainer>
-            </div>
+                                className="pcbs-logo h-16 w-16"
           </div>
           
           <div>
             <h3 className="text-lg font-semibold text-pcbs mb-4">Votre progression</h3>
             <div className="space-y-4">
-              {TIMEPOINTS.map((tp, i) => {
-                const measure = measures[i];
+                                <div className="text-2xl font-bold text-pcbs">Polyclinique</div>
+                        <Users className="w-8 h-8 text-pcbs" />
                 const completed = !!measure;
                 return (
                   <div key={tp.id} className={`p-4 rounded-lg border-l-4 ${
-                    completed ? 'border-l-pcbs-success bg-green-50' : 'border-l-pcbs-warning bg-yellow-50'
+                        {/* Navigation */}
+                        <nav className="hidden md:flex items-center space-x-8">
+                            <a href="#" className="pcbs-nav-link">La Polyclinique</a>
+                            <p className="text-sm font-medium text-pcbs-secondary">Questionnaires Complétés</p>
+                            <p className="text-3xl font-bold text-pcbs">
+                            <a href="#" className="pcbs-nav-link">Infos pratiques</a>
+                        </nav>
+                        
+                        <FileText className="w-8 h-8 text-pcbs-success" />
                   }`}>
                     <div className="flex items-center justify-between">
-                      <div>
-                        <div className="font-medium text-pcbs">{tp.label}</div>
-                        {measure && (
+                                className="btn-pcbs-secondary text-sm hidden md:block"
+                            <p className="text-sm font-medium text-pcbs-secondary">Patients Actifs</p>
+                            <p className="text-3xl font-bold text-pcbs">{patients.length}</p>
                           <div className="text-sm text-pcbs-secondary mt-1">
-                            Oxford: {measure.scores?.oxford}/48 • WOMAC: {measure.scores?.womac}/96
-                          </div>
-                        )}
-                      </div>
+                            <p className="text-sm font-medium text-pcbs-secondary">Rappels En Attente</p>
+                            <p className="text-3xl font-bold text-pcbs">{pendingReminders.length}</p>
+                                className="btn-pcbs text-sm hidden md:block"
+                        <Clock className="w-8 h-8 text-pcbs-warning" />
                       <span className={completed ? "badge-success" : "badge-warning"}>
                         {completed ? "Complété" : "En attente"}
-                      </span>
-                    </div>
-                  </div>
+                            
+                            {/* Mobile Menu Button */}
+                            <button className="md:hidden p-2">
+                                <Menu className="w-6 h-6 text-pcbs" />
+                            <p className="text-sm font-medium text-pcbs-secondary">Taux de Complétude</p>
+                            <p className="text-3xl font-bold text-pcbs">{completionRate}%</p>
+                        <div className="text-3xl font-bold">{patients.length}</div>
+                        <TrendingUp className="w-8 h-8 text-pcbs" />
                 );
               })}
             </div>
