@@ -7,7 +7,7 @@ export default function MyApp({ Component, pageProps }) {
             <Head>
                 <link
                     rel="stylesheet"
-                    href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap"
+                    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
                 />
             </Head>
             <Component {...pageProps} />

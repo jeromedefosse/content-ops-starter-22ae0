@@ -247,26 +247,26 @@ export default function RaacPromsApp() {
         <meta name="description" content="Système de suivi des PROMs (Patient Reported Outcome Measures) pour la chirurgie orthopédique" />
       </Head>
       
-      <div className="min-h-screen bg-neutral-50 text-neutral-900">
-        <header className="sticky top-0 z-10 border-b bg-white/80 backdrop-blur">
+      <div className="min-h-screen bg-pcbs-gray-50 text-pcbs-gray-900">
+        <header className="sticky top-0 z-10 border-b border-pcbs-gray-200 bg-white/95 backdrop-blur-sm shadow-sm">
           <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 p-4">
             <div className="flex items-center gap-3">
               <img 
                 src={state.settings.logoUrl || LOGO_URL} 
                 onError={(e)=>{(e.currentTarget as HTMLImageElement).style.display='none';}} 
                 alt="Polyclinique Côte Basque Sud" 
-                className="h-8 w-8"
+                className="h-10 w-10 rounded-lg shadow-sm"
               />
               <div>
-                <h1 className="text-xl font-semibold text-pcbs">RAAC – Suivi PROMs</h1>
-                <p className="text-xs text-neutral-500">Oxford • WOMAC • Pré‑op / J+2 / 1m / 6m / 1a</p>
+                <h1 className="text-xl font-bold text-pcbs">RAAC – Suivi PROMs</h1>
+                <p className="text-sm text-pcbs-secondary font-medium">Polyclinique Côte Basque Sud</p>
               </div>
             </div>
-            <nav className="flex gap-3 text-sm">
-              <button onClick={()=>setView("patients")} className={view==="patients"?"font-semibold text-pcbs":""}><Users className="inline mr-1" size={16}/>Patients</button>
-              <button onClick={()=>setView("collect")} className={view==="collect"?"font-semibold text-pcbs":""}><PlayCircle className="inline mr-1" size={16}/>Collecte</button>
-              <button onClick={()=>setView("stats")} className={view==="stats"?"font-semibold text-pcbs":""}><BarChart3 className="inline mr-1" size={16}/>Statistiques</button>
-              <button onClick={()=>setView("settings")} className={view==="settings"?"font-semibold text-pcbs":""}><Mail className="inline mr-1" size={16}/>Réglages</button>
+            <nav className="flex gap-2 text-sm">
+              <NavButton active={view==="patients"} onClick={()=>setView("patients")} icon={<Users size={18}/>} label="Patients"/>
+              <NavButton active={view==="collect"} onClick={()=>setView("collect")} icon={<ClipboardList size={18}/>} label="Collecte"/>
+              <NavButton active={view==="stats"} onClick={()=>setView("stats")} icon={<BarChart3 size={18}/>} label="Statistiques"/>
+              <NavButton active={view==="settings"} onClick={()=>setView("settings")} icon={<Mail size={18}/>} label="Réglages"/>
             </nav>
           </div>
         </header>
@@ -279,14 +279,24 @@ export default function RaacPromsApp() {
           {view==="portal" && <PatientPortal state={state} />}
         </main>
 
-        <footer className="mx-auto max-w-6xl p-4 text-xs text-neutral-500">
+        <footer className="mx-auto max-w-6xl p-6 border-t border-pcbs-gray-200 bg-white mt-8">
+          <div className="flex items-center justify-between">
+            <div className="text-sm text-pcbs-secondary">
+              © 2025 Polyclinique Côte Basque Sud - Système RAAC PROMs
+            </div>
+            <div className="text-xs text-pcbs-secondary">
           {saving? (
-            <span className="inline-flex items-center gap-2">
-              <Loader2 className="animate-spin" size={14}/> Sauvegarde…
-            </span>
+              <span className="inline-flex items-center gap-2 text-pcbs-primary">
+                <Loader2 className="animate-spin" size={14}/> Sauvegarde en cours...
+              </span>
           ):(
-            <span>Auto‑sauvegarde locale activée.</span>
+              <span className="inline-flex items-center gap-2">
+                <div className="w-2 h-2 bg-pcbs-success rounded-full"></div>
+                Données sauvegardées localement
+              </span>
           )}
+            </div>
+          </div>
         </footer>
       </div>
     </>
@@ -294,8 +304,33 @@ export default function RaacPromsApp() {
 }
 
 // -------------------- Patients (CRUD + rappels) --------------------
-function Card({ children, className = "" }: { children: React.ReactNode; className?: string }) { 
-  return <div className={`rounded-2xl border bg-white p-4 shadow-sm ${className}`}>{children}</div>; 
+function Card({ children, className = "", title }: { children: React.ReactNode; className?: string; title?: string }) { 
+  return (
+    <div className={`card-pcbs p-6 ${className}`}>
+      {title && (
+        <div className="mb-4 pb-3 border-b border-pcbs-gray-200">
+          <h3 className="text-lg font-semibold text-pcbs">{title}</h3>
+        </div>
+      )}
+      {children}
+    </div>
+  ); 
+}
+
+function NavButton({ active, onClick, icon, label }: { active: boolean; onClick: () => void; icon: React.ReactNode; label: string }) {
+  return (
+    <button 
+      onClick={onClick} 
+      className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
+        active 
+          ? "bg-pcbs text-white shadow-md" 
+          : "text-pcbs-secondary hover:text-pcbs hover:bg-pcbs-secondary"
+      }`}
+    >
+      {icon}
+      <span className="hidden sm:inline">{label}</span>
+    </button>
+  );
 }
 
 function Patients({ state, setState }: { state: any; setState: any }){
@@ -326,57 +361,96 @@ function Patients({ state, setState }: { state: any; setState: any }){
   const reminders = computeReminders(state);
 
   return (
-    <div className="grid gap-4 md:grid-cols-[360px_1fr]">
-      <div className="space-y-4">
-        <Card>
-          <div className="text-sm font-semibold">Nouveau patient</div>
-          <div className="mt-3 grid gap-2">
-            <input className="rounded-xl border px-3 py-2" placeholder="Nom" value={form.nom} onChange={e=>setForm({...form,nom:e.target.value})}/>
-            <input className="rounded-xl border px-3 py-2" placeholder="Prénom" value={form.prenom} onChange={e=>setForm({...form,prenom:e.target.value})}/>
-            <input className="rounded-xl border px-3 py-2" type="date" placeholder="Naissance" value={form.naissance} onChange={e=>setForm({...form,naissance:e.target.value})}/>
-            <select className="rounded-xl border px-3 py-2" value={form.articulation} onChange={e=>setForm({...form,articulation:e.target.value})}>
+    <div className="grid gap-6 lg:grid-cols-[400px_1fr]">
+      <div className="space-y-6">
+        <Card title="Nouveau patient">
+          <div className="grid gap-4">
+            <div className="grid gap-3 md:grid-cols-2">
+              <input className="input-pcbs" placeholder="Nom *" value={form.nom} onChange={e=>setForm({...form,nom:e.target.value})}/>
+              <input className="input-pcbs" placeholder="Prénom *" value={form.prenom} onChange={e=>setForm({...form,prenom:e.target.value})}/>
+            </div>
+            <input className="input-pcbs" type="date" placeholder="Date de naissance" value={form.naissance} onChange={e=>setForm({...form,naissance:e.target.value})}/>
+            <select className="input-pcbs" value={form.articulation} onChange={e=>setForm({...form,articulation:e.target.value})}>
               <option value="genou">Genou</option>
               <option value="hanche">Hanche</option>
             </select>
-            <input className="rounded-xl border px-3 py-2" type="email" required placeholder="Email (obligatoire)" value={form.email} onChange={e=>setForm({...form,email:e.target.value})}/>
-            <div className="text-xs text-neutral-600">Email indispensable pour les rappels.</div>
-            <label className="text-sm mt-1">Date d'opération</label>
-            <input className="rounded-xl border px-3 py-2" type="date" value={form.opDate} onChange={e=>setForm({...form,opDate:e.target.value})}/>
-            <button onClick={add} className="btn-pcbs">Ajouter</button>
+            <input className="input-pcbs" type="email" required placeholder="Email *" value={form.email} onChange={e=>setForm({...form,email:e.target.value})}/>
+            <div className="text-sm text-pcbs-secondary bg-pcbs-secondary p-3 rounded-lg">
+              <strong>Note:</strong> L'email est indispensable pour l'envoi des rappels automatiques.
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-pcbs-secondary mb-2">Date d'opération</label>
+              <input className="input-pcbs w-full" type="date" value={form.opDate} onChange={e=>setForm({...form,opDate:e.target.value})}/>
+            </div>
+            <button onClick={add} className="btn-pcbs w-full flex items-center justify-center gap-2">
+              <Plus size={18}/>
+              Ajouter le patient
+            </button>
           </div>
         </Card>
 
-        <Card>
-          <div className="flex items-center justify-between">
-            <div className="text-sm font-semibold">Patients ({patients.length})</div>
-            <button onClick={exportCSV} className="text-sm underline">Exporter CSV</button>
+        <Card title={`Patients (${patients.length})`}>
+          <div className="flex items-center justify-between mb-4">
+            <input className="input-pcbs flex-1 mr-3" placeholder="Rechercher un patient..." value={filter} onChange={e=>setFilter(e.target.value)}/>
+            <button onClick={exportCSV} className="btn-pcbs-secondary flex items-center gap-2">
+              <Download size={16}/>
+              CSV
+            </button>
           </div>
-          <input className="mt-3 rounded-xl border px-3 py-2 w-full" placeholder="Rechercher…" value={filter} onChange={e=>setFilter(e.target.value)}/>
-          <div className="mt-3 grid gap-2">
+          <div className="space-y-2 max-h-80 overflow-auto">
             {patients.map((p: any)=> (
-              <button key={p.id} onClick={()=>setSelected(p.id)} className={`rounded-xl border px-3 py-2 text-left ${selected===p.id?"bg-neutral-100":""}`}>
-                <div className="text-sm font-medium">{p.nom} {p.prenom}</div>
-                <div className="text-xs text-neutral-500">{p.email} • {p.articulation} • Op: {fmtDate(p.opDate)}</div>
+              <button key={p.id} onClick={()=>setSelected(p.id)} className={`w-full text-left p-4 rounded-lg border-2 transition-all duration-200 ${
+                selected===p.id 
+                  ? "border-pcbs bg-pcbs-secondary" 
+                  : "border-pcbs-gray-200 hover:border-pcbs hover:bg-pcbs-secondary/50"
+              }`}>
+                <div className="font-semibold text-pcbs">{p.nom} {p.prenom}</div>
+                <div className="text-sm text-pcbs-secondary mt-1">
+                  <span className="inline-flex items-center gap-1">
+                    <Mail size={12}/> {p.email}
+                  </span>
+                  <span className="mx-2">•</span>
+                  <span className="capitalize">{p.articulation}</span>
+                  <span className="mx-2">•</span>
+                  <span>Op: {fmtDate(p.opDate)}</span>
+                </div>
               </button>
             ))}
-            {!patients.length && <div className="text-sm text-neutral-500">Aucun patient.</div>}
+            {!patients.length && (
+              <div className="text-center py-8 text-pcbs-secondary">
+                <Users size={48} className="mx-auto mb-3 opacity-50"/>
+                <p>Aucun patient enregistré</p>
+              </div>
+            )}
           </div>
         </Card>
 
-        <Card>
-          <div className="flex items-center gap-2 text-sm font-semibold"><Calendar size={16}/> Rappels planifiés</div>
-          <div className="mt-2 text-xs text-neutral-600">À échéance ≤ aujourd'hui et non complétés.</div>
-          <div className="mt-2 grid gap-2 max-h-64 overflow-auto">
-            {reminders.length? reminders.map((r: any,i: number)=> <ReminderRow key={i} r={r} state={state} setState={setState}/>) : <div className="text-sm text-neutral-500">Aucun rappel dû.</div>}
+        <Card title="Rappels planifiés">
+          <div className="mb-3 text-sm text-pcbs-secondary bg-pcbs-secondary p-3 rounded-lg">
+            Questionnaires à échéance ≤ aujourd'hui et non complétés
+          </div>
+          <div className="space-y-3 max-h-64 overflow-auto">
+            {reminders.length? reminders.map((r: any,i: number)=> <ReminderRow key={i} r={r} state={state} setState={setState}/>) : (
+              <div className="text-center py-6 text-pcbs-secondary">
+                <Calendar size={48} className="mx-auto mb-3 opacity-50"/>
+                <p>Aucun rappel en attente</p>
+              </div>
+            )}
           </div>
         </Card>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-6">
         {sel ? (
           <PatientCard patient={sel} state={state} />
         ) : (
-          <Card><div className="text-sm text-neutral-500">Sélectionnez un patient pour voir son suivi et générer le lien portail.</div></Card>
+          <Card>
+            <div className="text-center py-12 text-pcbs-secondary">
+              <Eye size={64} className="mx-auto mb-4 opacity-50"/>
+              <h3 className="text-lg font-medium mb-2">Sélectionnez un patient</h3>
+              <p>Choisissez un patient dans la liste pour voir son suivi détaillé et générer le lien portail.</p>
+            </div>
+          </Card>
         )}
       </div>
     </div>
@@ -412,13 +486,28 @@ function ReminderRow({ r, state }: { r: any; state: any }){
     }catch(e){ alert("Erreur lors de l'appel API."); }
   };
   const downloadICS = () => downloadICSFor(r.patient, r.tp, r.due, state.settings);
+  
+  const isOverdue = r.due < todayISO();
+  
   return (
-    <div className="flex items-center justify-between rounded-xl border px-3 py-2 text-sm">
-      <div><span className="font-medium">{r.patient.nom} {r.patient.prenom}</span> • {r.tp.label} • Échéance {new Date(r.due).toLocaleDateString()}</div>
-      <div className="flex items-center gap-2">
-        <a className="underline" href={mailto}><Mail size={16} className="inline mr-1"/>Email</a>
-        <button className="rounded-xl border px-2 py-1" onClick={sendViaAPI}>API</button>
-        <button className="rounded-xl border px-2 py-1" onClick={downloadICS}>.ics</button>
+    <div className={`p-4 rounded-lg border-l-4 ${isOverdue ? 'border-l-pcbs-error bg-red-50' : 'border-l-pcbs-warning bg-yellow-50'}`}>
+      <div className="flex items-center justify-between">
+        <div>
+          <div className="font-semibold text-pcbs">{r.patient.nom} {r.patient.prenom}</div>
+          <div className="text-sm text-pcbs-secondary mt-1">
+            {r.tp.label} • Échéance: {fmtDate(r.due)}
+            {isOverdue && <span className="badge-error ml-2">En retard</span>}
+          </div>
+        </div>
+        <div className="flex items-center gap-2">
+          <a className="btn-pcbs-secondary text-xs px-3 py-1" href={mailto}>
+            <Mail size={14} className="inline mr-1"/>Email
+          </a>
+          <button className="btn-pcbs-secondary text-xs px-3 py-1" onClick={sendViaAPI}>API</button>
+          <button className="btn-pcbs-secondary text-xs px-3 py-1" onClick={downloadICS}>
+            <Calendar size={14} className="inline mr-1"/>.ics
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -435,19 +524,34 @@ function PatientCard({ patient, state }: { patient: any; state: any }){
   const measures = TIMEPOINTS.map(tp => state.measures.find((m: any)=>m.patientId===patient.id && m.timepoint===tp.id) || null);
   const data = TIMEPOINTS.map((tp, i) => ({ name: tp.label, Oxford: measures[i]?.scores?.oxford ?? null, WOMAC: measures[i]?.scores?.womac ?? null }));
   const portalURL = makePortalURL(patient);
+  
+  const completedCount = measures.filter(m => m !== null).length;
+  const completionRate = Math.round((completedCount / TIMEPOINTS.length) * 100);
+  
   return (
-    <Card>
-      <div className="flex items-center justify-between">
+    <Card title={`${patient.nom} ${patient.prenom}`}>
+      <div className="flex items-center justify-between mb-6">
         <div>
-          <div className="text-sm font-semibold">{patient.nom} {patient.prenom} — {patient.articulation}</div>
-          <div className="text-xs text-neutral-500">Email: {patient.email} • Op: {fmtDate(patient.opDate)} • Naissance: {fmtDate(patient.naissance)}</div>
+          <div className="flex items-center gap-3 mb-2">
+            <span className="badge-success capitalize">{patient.articulation}</span>
+            <span className="text-sm text-pcbs-secondary">Complétude: {completionRate}%</span>
+          </div>
+          <div className="text-sm text-pcbs-secondary space-y-1">
+            <div><Mail size={14} className="inline mr-2"/>{patient.email}</div>
+            <div><Calendar size={14} className="inline mr-2"/>Opération: {fmtDate(patient.opDate)}</div>
+            <div>Naissance: {fmtDate(patient.naissance)}</div>
+          </div>
         </div>
-        <a href={portalURL} target="_blank" rel="noreferrer" className="text-sm underline">Ouvrir portail <ExternalLink className="inline" size={14}/></a>
+        <a href={portalURL} target="_blank" rel="noreferrer" className="btn-pcbs flex items-center gap-2">
+          <ExternalLink size={16}/>
+          Portail patient
+        </a>
       </div>
-      <div className="mt-4 grid gap-4 md:grid-cols-2">
+      
+      <div className="grid gap-6 lg:grid-cols-2">
         <div>
-          <div className="text-sm font-medium mb-2">Évolution des scores</div>
-          <div className="h-56">
+          <h4 className="text-lg font-semibold text-pcbs mb-4">Évolution des scores</h4>
+          <div className="h-64 bg-pcbs-gray-50 rounded-lg p-4">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={data} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
                 <CartesianGrid strokeDasharray="3 3" />
@@ -455,15 +559,36 @@ function PatientCard({ patient, state }: { patient: any; state: any }){
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Line type="monotone" dataKey="Oxford" dot />
-                <Line type="monotone" dataKey="WOMAC" dot />
+                <Line type="monotone" dataKey="Oxford" stroke="var(--pcbs-primary)" strokeWidth={3} dot={{ fill: 'var(--pcbs-primary)', strokeWidth: 2, r: 6 }} />
+                <Line type="monotone" dataKey="WOMAC" stroke="var(--pcbs-accent)" strokeWidth={3} dot={{ fill: 'var(--pcbs-accent)', strokeWidth: 2, r: 6 }} />
               </LineChart>
             </ResponsiveContainer>
           </div>
         </div>
         <div>
-          <div className="text-sm font-medium mb-2">Générer fiche imprimable</div>
-          <button className="rounded-2xl border px-3 py-2 text-sm" onClick={()=>window.print()}>Imprimer / PDF</button>
+          <h4 className="text-lg font-semibold text-pcbs mb-4">Actions</h4>
+          <div className="space-y-3">
+            <button className="btn-pcbs-secondary w-full flex items-center justify-center gap-2" onClick={()=>window.print()}>
+              <FileDown size={16}/>
+              Imprimer / Exporter PDF
+            </button>
+            <div className="bg-pcbs-secondary p-4 rounded-lg">
+              <h5 className="font-medium text-pcbs mb-2">Progression du suivi</h5>
+              <div className="space-y-2">
+                {TIMEPOINTS.map((tp, i) => {
+                  const completed = measures[i] !== null;
+                  return (
+                    <div key={tp.id} className="flex items-center justify-between">
+                      <span className="text-sm">{tp.label}</span>
+                      <span className={completed ? "badge-success" : "badge-warning"}>
+                        {completed ? "Complété" : "En attente"}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </Card>
@@ -475,24 +600,41 @@ function Collect({ state, setState }: { state: any; setState: any }){
   const [selected, setSelected] = useState("");
   const patient = state.patients.find((p: any)=>p.id===selected) || null;
   return (
-    <div className="grid gap-4">
-      <Card>
-        <div className="text-sm font-semibold">Saisir Oxford + WOMAC</div>
-        <div className="mt-2 grid gap-2 md:grid-cols-3">
-          <select className="rounded-xl border px-3 py-2" value={selected} onChange={e=>setSelected(e.target.value)}>
+    <div className="space-y-6">
+      <Card title="Collecte des données">
+        <div className="grid gap-4 md:grid-cols-2">
+          <select className="input-pcbs" value={selected} onChange={e=>setSelected(e.target.value)}>
             <option value="">— Choisir un patient —</option>
-            {state.patients.map((p: any)=> <option key={p.id} value={p.id}>{p.nom} {p.prenom}</option>)}
+            {state.patients.map((p: any)=> <option key={p.id} value={p.id}>{p.nom} {p.prenom} ({p.articulation})</option>)}
           </select>
+          {patient && (
+            <div className="bg-pcbs-secondary p-4 rounded-lg">
+              <div className="font-medium text-pcbs">{patient.nom} {patient.prenom}</div>
+              <div className="text-sm text-pcbs-secondary">
+                {patient.articulation} • Op: {fmtDate(patient.opDate)}
+              </div>
+            </div>
+          )}
         </div>
       </Card>
-      {patient ? <TimepointGrid patient={patient} state={state} setState={setState}/> : <Card><div className="text-sm text-neutral-500">Choisissez un patient.</div></Card>}
+      {patient ? (
+        <TimepointGrid patient={patient} state={state} setState={setState}/>
+      ) : (
+        <Card>
+          <div className="text-center py-12 text-pcbs-secondary">
+            <ClipboardList size={64} className="mx-auto mb-4 opacity-50"/>
+            <h3 className="text-lg font-medium mb-2">Sélectionnez un patient</h3>
+            <p>Choisissez un patient pour commencer la saisie des questionnaires Oxford et WOMAC.</p>
+          </div>
+        </Card>
+      )}
     </div>
   );
 }
 
 function TimepointGrid({ patient, state, setState }: { patient: any; state: any; setState: any }){
   return (
-    <div className="grid gap-4 md:grid-cols-2">
+    <div className="grid gap-6 xl:grid-cols-2">
       {TIMEPOINTS.map(tp=> <MeasureBlock key={tp.id} patient={patient} tp={tp} state={state} setState={setState}/>) }
     </div>
   );
@@ -513,56 +655,87 @@ function MeasureBlock({ patient, tp, state, setState }: { patient: any; tp: any;
     setState({ ...state, measures: [...others, rec] });
   };
 
+  const isCompleted = !!m;
+  
   return (
-    <div className="rounded-2xl border p-3">
-      <div className="flex items-center justify-between">
-        <div className="text-sm font-semibold">{tp.label}</div>
-        <div className="text-xs text-neutral-500">Date <input className="rounded border px-2 py-1 ml-2" type="date" value={dateISO} onChange={e=>setDateISO(e.target.value)}/></div>
+    <Card className={isCompleted ? "border-l-4 border-l-pcbs-success" : ""}>
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center gap-3">
+          <h4 className="text-lg font-semibold text-pcbs">{tp.label}</h4>
+          {isCompleted && <span className="badge-success">Complété</span>}
+        </div>
+        <div className="flex items-center gap-2 text-sm text-pcbs-secondary">
+          <Calendar size={16}/>
+          <input className="input-pcbs text-sm" type="date" value={dateISO} onChange={e=>setDateISO(e.target.value)}/>
+        </div>
       </div>
-      <div className="mt-3 grid gap-4 md:grid-cols-2">
+      
+      <div className="grid gap-6 lg:grid-cols-2">
         <div>
-          <div className="text-sm font-medium mb-2">Oxford (12 items)</div>
-          <div className="space-y-2 max-h-72 overflow-auto pr-1">
+          <div className="flex items-center justify-between mb-3">
+            <h5 className="font-medium text-pcbs">Oxford Hip/Knee Score</h5>
+            <span className="text-sm font-semibold text-pcbs">{scoreOxford}/48</span>
+          </div>
+          <div className="space-y-3 max-h-80 overflow-auto pr-2">
             {OXFORD_ITEMS.map((label, i) => (
-              <div key={i} className="grid grid-cols-[1fr_auto] items-center gap-2">
-                <div className="text-sm">{i+1}. {label}</div>
-                <select className="rounded-xl border px-2 py-1 w-36" value={ox[i]} onChange={e=>setOx({...ox, [i]: Number(e.target.value)})}>
+              <div key={i} className="bg-pcbs-gray-50 p-3 rounded-lg">
+                <div className="text-sm font-medium text-pcbs-secondary mb-2">{i+1}. {label}</div>
+                <select className="input-pcbs w-full" value={ox[i]} onChange={e=>setOx({...ox, [i]: Number(e.target.value)})}>
                   {OXFORD_OPTIONS.map(o=> <option key={o.value} value={o.value}>{o.label} ({o.value})</option>)}
                 </select>
               </div>
             ))}
           </div>
-          <div className="mt-2 text-sm">Oxford: <b>{scoreOxford}</b> / 48</div>
         </div>
+        
         <div>
-          <div className="text-sm font-medium mb-2">WOMAC (24 items)</div>
-          <div className="space-y-2 max-h-72 overflow-auto pr-1">
+          <div className="flex items-center justify-between mb-3">
+            <h5 className="font-medium text-pcbs">WOMAC Score</h5>
+            <span className="text-sm font-semibold text-pcbs">{scoreWomac}/96</span>
+          </div>
+          <div className="space-y-3 max-h-80 overflow-auto pr-2">
             {WOMAC_SECTIONS.map(sec => (
               <div key={sec.key}>
-                <div className="text-xs font-semibold text-neutral-600 mb-1">{sec.label}</div>
-                {sec.items.map((label, idx) => (
-                  <div key={idx} className="grid grid-cols-[1fr_auto] items-center gap-2">
-                    <div className="text-sm">{label}</div>
-                    <select className="rounded-xl border px-2 py-1 w-24" value={wm[[sec.key,idx]]} onChange={e=>setWm({...wm, [[sec.key,idx]]: Number(e.target.value)})}>
+                <div className="text-sm font-semibold text-pcbs mb-2 bg-pcbs-secondary p-2 rounded">{sec.label}</div>
+                <div className="space-y-2 ml-2">
+                  {sec.items.map((label, idx) => (
+                    <div key={idx} className="flex items-center justify-between gap-3">
+                      <div className="text-sm text-pcbs-secondary flex-1">{label}</div>
+                      <select className="input-pcbs w-20 text-sm" value={wm[[sec.key,idx]]} onChange={e=>setWm({...wm, [[sec.key,idx]]: Number(e.target.value)})}>
                       {WOMAC_OPTIONS.map(v=> <option key={v} value={v}>{v}</option>)}
-                    </select>
-                  </div>
-                ))}
+                      </select>
+                    </div>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
-          <div className="mt-2 text-sm">WOMAC: <b>{scoreWomac}</b> / 96 (plus bas = mieux)</div>
+          <div className="mt-3 text-xs text-pcbs-secondary bg-pcbs-secondary p-2 rounded">
+            Score plus bas = meilleur résultat
+          </div>
         </div>
       </div>
-      <div className="mt-3">
-        <label className="text-sm font-medium">Commentaire du patient (visible administrateurs)</label>
-        <textarea className="mt-1 w-full rounded-xl border px-3 py-2" rows={3} placeholder="Exprimez librement une remarque, douleur, difficulté…" value={comment} onChange={e=>setComment(e.target.value)} />
+      
+      <div className="mt-6">
+        <label className="block text-sm font-medium text-pcbs mb-2">Commentaire du patient</label>
+        <textarea 
+          className="input-pcbs w-full" 
+          rows={3} 
+          placeholder="Exprimez librement une remarque, douleur, difficulté…" 
+          value={comment} 
+          onChange={e=>setComment(e.target.value)} 
+        />
+        <div className="text-xs text-pcbs-secondary mt-1">Visible uniquement par les administrateurs</div>
       </div>
-      <div className="pt-3 flex items-center justify-between">
-        <button onClick={saveMeasure} className="btn-pcbs">Enregistrer</button>
-        <div className="text-xs text-neutral-500">Sauvegarde locale automatique</div>
+      
+      <div className="pt-6 border-t border-pcbs-gray-200 flex items-center justify-between">
+        <button onClick={saveMeasure} className="btn-pcbs flex items-center gap-2">
+          <PlayCircle size={16}/>
+          Enregistrer les données
+        </button>
+        <div className="text-xs text-pcbs-secondary">Sauvegarde automatique activée</div>
       </div>
-    </div>
+    </Card>
   );
 }
 
@@ -586,43 +759,101 @@ function Stats({ state }: { state: any }){
   });
 
   return (
-    <Card>
-      <div className="flex items-center justify-between mb-2">
-        <div className="text-sm font-semibold">Statistiques globales</div>
-        <div className="text-sm">
-          <label className="mr-2">Articulation:</label>
-          <select className="rounded-xl border px-2 py-1" value={artFilter} onChange={e=>setArtFilter(e.target.value)}>
+    <div className="space-y-6">
+      <Card title="Statistiques globales">
+        <div className="flex items-center justify-between mb-6">
+          <div className="text-pcbs-secondary">
+            Analyse des données collectées par timepoint et type d'articulation
+          </div>
+          <div className="flex items-center gap-3">
+            <label className="text-sm font-medium text-pcbs-secondary">Filtrer par articulation:</label>
+            <select className="input-pcbs" value={artFilter} onChange={e=>setArtFilter(e.target.value)}>
             <option value="all">Toutes</option>
             <option value="genou">Genou</option>
             <option value="hanche">Hanche</option>
           </select>
+          </div>
         </div>
-      </div>
-      <div className="overflow-x-auto">
-        <table className="min-w-full text-sm">
-          <thead>
-            <tr className="bg-neutral-100 text-left">
-              <th className="px-3 py-2">Temps</th>
-              <th className="px-3 py-2">N</th>
-              <th className="px-3 py-2">Oxford moyen</th>
-              <th className="px-3 py-2">WOMAC moyen</th>
-              <th className="px-3 py-2">Complétude</th>
+        
+        <div className="overflow-x-auto">
+          <table className="min-w-full">
+            <thead>
+              <tr className="bg-pcbs-secondary text-left">
+                <th className="px-4 py-3 font-semibold text-pcbs">Timepoint</th>
+                <th className="px-4 py-3 font-semibold text-pcbs">Patients (N)</th>
+                <th className="px-4 py-3 font-semibold text-pcbs">Oxford moyen</th>
+                <th className="px-4 py-3 font-semibold text-pcbs">WOMAC moyen</th>
+                <th className="px-4 py-3 font-semibold text-pcbs">Taux de complétude</th>
             </tr>
           </thead>
           <tbody>
             {rows.map((r,i)=>(
-              <tr key={i} className="border-t">
-                <td className="px-3 py-2">{r.timepoint}</td>
-                <td className="px-3 py-2">{r.n}</td>
-                <td className="px-3 py-2">{r.avgOxford}</td>
-                <td className="px-3 py-2">{r.avgWOMAC}</td>
-                <td className="px-3 py-2">{r.completude}</td>
+              <tr key={i} className="border-t border-pcbs-gray-200 hover:bg-pcbs-gray-50">
+                <td className="px-4 py-3 font-medium text-pcbs">{r.timepoint}</td>
+                <td className="px-4 py-3 text-pcbs-secondary">{r.n}</td>
+                <td className="px-4 py-3 text-pcbs-secondary">{r.avgOxford}</td>
+                <td className="px-4 py-3 text-pcbs-secondary">{r.avgWOMAC}</td>
+                <td className="px-4 py-3">
+                  <span className={`badge-${r.n > 0 ? 'success' : 'warning'}`}>{r.completude}</span>
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
+        </div>
+      </Card>
+      
+      <div className="grid gap-6 md:grid-cols-3">
+        <Card title="Résumé">
+          <div className="space-y-4">
+            <div className="text-center">
+              <div className="text-3xl font-bold text-pcbs">{state.patients.length}</div>
+              <div className="text-sm text-pcbs-secondary">Patients total</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-pcbs">{state.measures.length}</div>
+              <div className="text-sm text-pcbs-secondary">Mesures collectées</div>
+            </div>
+          </div>
+        </Card>
+        
+        <Card title="Répartition">
+          <div className="space-y-3">
+            {['genou', 'hanche'].map(art => {
+              const count = state.patients.filter((p: any) => p.articulation === art).length;
+              const pct = state.patients.length ? Math.round((count / state.patients.length) * 100) : 0;
+              return (
+                <div key={art} className="flex items-center justify-between">
+                  <span className="capitalize text-pcbs-secondary">{art}</span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium text-pcbs">{count}</span>
+                    <span className="text-xs text-pcbs-secondary">({pct}%)</span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </Card>
+        
+        <Card title="Qualité des données">
+          <div className="space-y-3">
+            {TIMEPOINTS.map(tp => {
+              const total = filteredMeasures(tp.id).length;
+              const base = artFilter === 'all' ? state.patients.length : state.patients.filter((p: any) => p.articulation === artFilter).length;
+              const rate = base ? Math.round((total / base) * 100) : 0;
+              return (
+                <div key={tp.id} className="flex items-center justify-between">
+                  <span className="text-sm text-pcbs-secondary">{tp.label}</span>
+                  <span className={`badge-${rate >= 80 ? 'success' : rate >= 50 ? 'warning' : 'error'}`}>
+                    {rate}%
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        </Card>
       </div>
-    </Card>
+    </div>
   );
 }
 
@@ -650,40 +881,95 @@ function Settings({ state, setState }: { state: any; setState: any }){
   };
 
   return (
-    <Card>
-      <div className="text-sm font-semibold mb-2">Paramètres d'envoi & modèle d'e-mail</div>
-      <div className="grid gap-3 md:grid-cols-2">
-        <div className="space-y-2">
-          <input className="rounded-xl border px-3 py-2 w-full" placeholder="Nom de l'établissement" value={s.orgName} onChange={e=>set({orgName:e.target.value})}/>
-          <input className="rounded-xl border px-3 py-2 w-full" placeholder="Logo URL (optionnel)" value={s.logoUrl} onChange={e=>set({logoUrl:e.target.value})}/>
-          <div className="grid grid-cols-2 gap-2">
-            <input className="rounded-xl border px-3 py-2" placeholder="Expéditeur (pro@domaine.fr)" value={s.senderEmail} onChange={e=>set({senderEmail:e.target.value})}/>
-            <input className="rounded-xl border px-3 py-2" placeholder="Heure par défaut (HH:MM)" value={s.defaultHour} onChange={e=>set({defaultHour:e.target.value})}/>
+    <div className="space-y-6">
+      <Card title="Configuration de l'établissement">
+        <div className="grid gap-4 md:grid-cols-2">
+          <div>
+            <label className="block text-sm font-medium text-pcbs mb-2">Nom de l'établissement</label>
+            <input className="input-pcbs w-full" value={s.orgName} onChange={e=>set({orgName:e.target.value})}/>
           </div>
-          <div className="grid grid-cols-2 gap-2">
-            <input className="rounded-xl border px-3 py-2 w-full" placeholder="API endpoint (POST /send)" value={s.apiEndpoint} onChange={e=>set({apiEndpoint:e.target.value})}/>
-            <button className="rounded-xl border px-3 py-2 text-xs" onClick={()=>set({apiEndpoint:'/.netlify/functions/send-email'})}>Utiliser Netlify Function</button>
+          <div>
+            <label className="block text-sm font-medium text-pcbs mb-2">URL du logo</label>
+            <input className="input-pcbs w-full" placeholder="https://..." value={s.logoUrl} onChange={e=>set({logoUrl:e.target.value})}/>
           </div>
-          <input className="rounded-xl border px-3 py-2 w-full" placeholder="API key (Bearer)" value={s.apiKey} onChange={e=>set({apiKey:e.target.value})}/>
-          <input className="rounded-xl border px-3 py-2 w-full" placeholder="Sujet (templating {{tpLabel}}, {{orgName}}...)" value={s.emailSubjectTemplate} onChange={e=>set({emailSubjectTemplate:e.target.value})}/>
-          <button className="rounded-xl border px-3 py-2 text-xs" onClick={resetSubj}>Réinitialiser le sujet par défaut</button>
-          <label className="text-sm font-medium">Template HTML</label>
-          <textarea className="rounded-xl border px-3 py-2 w-full h-48" value={s.emailTemplate} onChange={e=>set({emailTemplate:e.target.value})}/>
-          <button className="rounded-xl border px-3 py-2 text-xs" onClick={resetTpl}>Réinitialiser le template par défaut</button>
-          <div className="flex gap-2 mt-2">
-            <a className="rounded-2xl border px-3 py-2 text-sm" href={`mailto:${encodeURIComponent('test@exemple.com')}?subject=${encodeURIComponent(previewEmail.subject)}&body=${encodeURIComponent(previewEmail.text)}`}>Tester mailto</a>
-            <button className="rounded-2xl border px-3 py-2 text-sm" onClick={testAPI}>Tester envoi API</button>
+          <div>
+            <label className="block text-sm font-medium text-pcbs mb-2">Email expéditeur</label>
+            <input className="input-pcbs w-full" placeholder="noreply@polyclinique-cotebasquesud.fr" value={s.senderEmail} onChange={e=>set({senderEmail:e.target.value})}/>
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-pcbs mb-2">Heure par défaut des rappels</label>
+            <input className="input-pcbs w-full" placeholder="09:00" value={s.defaultHour} onChange={e=>set({defaultHour:e.target.value})}/>
           </div>
         </div>
-        <div className="space-y-2">
-          <div className="text-sm font-medium">Aperçu rendu HTML</div>
-          <div className="rounded-xl border p-3 bg-white" dangerouslySetInnerHTML={{ __html: previewEmail.html }} />
-          <div className="text-xs text-neutral-500">
-            <code>{`{{orgName}}, {{logoUrl}}, {{patientFirst}}, {{patientLast}}, {{tpLabel}}, {{portalURL}}, {{dueDate}}`}</code>
+      </Card>
+      
+      <Card title="Configuration API d'envoi">
+        <div className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-pcbs mb-2">Endpoint API</label>
+            <div className="flex gap-2">
+              <input className="input-pcbs flex-1" placeholder="/.netlify/functions/send-email" value={s.apiEndpoint} onChange={e=>set({apiEndpoint:e.target.value})}/>
+              <button className="btn-pcbs-secondary" onClick={()=>set({apiEndpoint:'/.netlify/functions/send-email'})}>
+                Netlify
+              </button>
+            </div>
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-pcbs mb-2">Clé API (Bearer Token)</label>
+            <input className="input-pcbs w-full" type="password" placeholder="Optionnel" value={s.apiKey} onChange={e=>set({apiKey:e.target.value})}/>
           </div>
         </div>
-      </div>
-    </Card>
+      </Card>
+      
+      <Card title="Modèles d'emails">
+        <div className="grid gap-6 lg:grid-cols-2">
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-pcbs mb-2">Sujet de l'email</label>
+              <input className="input-pcbs w-full" value={s.emailSubjectTemplate} onChange={e=>set({emailSubjectTemplate:e.target.value})}/>
+              <button className="btn-pcbs-secondary text-xs mt-2" onClick={resetSubj}>Réinitialiser</button>
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium text-pcbs mb-2">Template HTML</label>
+              <textarea className="input-pcbs w-full h-64 font-mono text-sm" value={s.emailTemplate} onChange={e=>set({emailTemplate:e.target.value})}/>
+              <button className="btn-pcbs-secondary text-xs mt-2" onClick={resetTpl}>Réinitialiser</button>
+            </div>
+            
+            <div className="bg-pcbs-secondary p-4 rounded-lg">
+              <h5 className="font-medium text-pcbs mb-2">Variables disponibles</h5>
+              <div className="text-xs text-pcbs-secondary font-mono space-y-1">
+                <div>{'{{orgName}}'} - Nom de l'établissement</div>
+                <div>{'{{logoUrl}}'} - URL du logo</div>
+                <div>{'{{patientFirst}}'} - Prénom du patient</div>
+                <div>{'{{patientLast}}'} - Nom du patient</div>
+                <div>{'{{tpLabel}}'} - Nom du timepoint</div>
+                <div>{'{{portalURL}}'} - Lien vers le portail</div>
+                <div>{'{{dueDate}}'} - Date d'échéance</div>
+              </div>
+            </div>
+            
+            <div className="flex gap-3">
+              <a className="btn-pcbs-secondary flex items-center gap-2" href={`mailto:${encodeURIComponent('test@exemple.com')}?subject=${encodeURIComponent(previewEmail.subject)}&body=${encodeURIComponent(previewEmail.text)}`}>
+                <Mail size={16}/>
+                Test mailto
+              </a>
+              <button className="btn-pcbs flex items-center gap-2" onClick={testAPI}>
+                <PlayCircle size={16}/>
+                Test API
+              </button>
+            </div>
+          </div>
+          
+          <div className="space-y-4">
+            <div>
+              <h5 className="font-medium text-pcbs mb-3">Aperçu de l'email</h5>
+              <div className="border border-pcbs-gray-200 rounded-lg p-4 bg-white max-h-96 overflow-auto" dangerouslySetInnerHTML={{ __html: previewEmail.html }} />
+            </div>
+          </div>
+        </div>
+      </Card>
+    </div>
   );
 }
 
@@ -693,23 +979,87 @@ function PatientPortal({ state }: { state: any }){
   const pid = url.searchParams.get("patient");
   const tok = url.searchParams.get("token");
   const p = state.patients.find((x: any)=>x.id===pid);
-  if(!p || p.token!==tok){ return <Card>Accès refusé.</Card>; }
+  if(!p || p.token!==tok){ 
+    return (
+      <Card>
+        <div className="text-center py-12">
+          <div className="text-6xl mb-4">🔒</div>
+          <h3 className="text-lg font-semibold text-pcbs-error mb-2">Accès refusé</h3>
+          <p className="text-pcbs-secondary">Lien invalide ou expiré. Contactez votre équipe médicale.</p>
+        </div>
+      </Card>
+    ); 
+  }
+  
   const measures = TIMEPOINTS.map(tp => state.measures.find((m: any)=>m.patientId===p.id && m.timepoint===tp.id) || null);
   const data = TIMEPOINTS.map((tp, i) => ({ name: tp.label, Oxford: measures[i]?.scores?.oxford ?? null, WOMAC: measures[i]?.scores?.womac ?? null }));
+  
   return (
-    <Card>
-      <div className="text-sm">Bonjour {p.prenom} {p.nom}. Voici votre suivi.</div>
-      <div className="h-64 mt-3">
-        <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={data} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Line type="monotone" dataKey="Oxford" dot />
-            <Line type="monotone" dataKey="WOMAC" dot />
-          </LineChart>
-        </ResponsiveContainer>
+    <div className="space-y-6">
+      <Card>
+        <div className="bg-pcbs-gradient p-6 rounded-lg text-white mb-6">
+          <h2 className="text-2xl font-bold mb-2">Bonjour {p.prenom} {p.nom}</h2>
+          <p className="opacity-90">Voici l'évolution de votre récupération post-opératoire</p>
+        </div>
+        
+        <div className="grid gap-6 lg:grid-cols-2">
+          <div>
+            <h3 className="text-lg font-semibold text-pcbs mb-4">Évolution de vos scores</h3>
+            <div className="h-80 bg-pcbs-gray-50 rounded-lg p-4">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={data} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Line type="monotone" dataKey="Oxford" stroke="var(--pcbs-primary)" strokeWidth={3} dot={{ fill: 'var(--pcbs-primary)', strokeWidth: 2, r: 6 }} />
+                  <Line type="monotone" dataKey="WOMAC" stroke="var(--pcbs-accent)" strokeWidth={3} dot={{ fill: 'var(--pcbs-accent)', strokeWidth: 2, r: 6 }} />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+          
+          <div>
+            <h3 className="text-lg font-semibold text-pcbs mb-4">Votre progression</h3>
+            <div className="space-y-4">
+              {TIMEPOINTS.map((tp, i) => {
+                const measure = measures[i];
+                const completed = !!measure;
+                return (
+                  <div key={tp.id} className={`p-4 rounded-lg border-l-4 ${
+                    completed ? 'border-l-pcbs-success bg-green-50' : 'border-l-pcbs-warning bg-yellow-50'
+                  }`}>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <div className="font-medium text-pcbs">{tp.label}</div>
+                        {measure && (
+                          <div className="text-sm text-pcbs-secondary mt-1">
+                            Oxford: {measure.scores?.oxford}/48 • WOMAC: {measure.scores?.womac}/96
+                          </div>
+                        )}
+                      </div>
+                      <span className={completed ? "badge-success" : "badge-warning"}>
+                        {completed ? "Complété" : "En attente"}
+                      </span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+        
+        <div className="mt-6 p-4 bg-pcbs-secondary rounded-lg">
+          <p className="text-sm text-pcbs-secondary">
+            <strong>Information:</strong> Ces données sont affichées à titre informatif. 
+            Pour toute question médicale, contactez votre équipe soignante.
+          </p>
+        </div>
+      </Card>
+    </div>
+  );
+}
       </div>
       <div className="mt-3 text-xs text-neutral-500">Les données sont affichées à titre informatif.</div>
     </Card>
