@@ -27,34 +27,7 @@ import Head from 'next/head';
  *  - Logo d'en‑tête (icône PCBS)
  */
 
-// -------------------- Marque (PCBS) --------------------
-const BRAND_PRIMARY = "#004D71"; // Pantone 3025C
 const LOGO_URL = "/POLYCLINIQUE-COTE-BASQUE-SUD-ICONE.png"; // placer ce fichier dans public/
-const BRAND_CSS = `
-  :root { --pcbs-primary: ${BRAND_PRIMARY}; }
-  body { font-family: 'Quicksand', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
-  .text-pcbs { color: var(--pcbs-primary); }
-  .bg-pcbs { background-color: var(--pcbs-primary); color: #fff; }
-  .border-pcbs { border-color: var(--pcbs-primary); }
-  .btn-pcbs { background-color: var(--pcbs-primary); color:#fff; border-radius: 1rem; padding: 0.5rem 0.75rem; font-size: 0.875rem; }
-  .btn-pcbs:hover { filter: brightness(0.95); }
-`;
-
-function BrandHead(){
-  useEffect(()=>{
-    // Inject Google Font
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = 'https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap';
-    document.head.appendChild(link);
-    // Inject brand CSS
-    const style = document.createElement('style');
-    style.innerHTML = BRAND_CSS;
-    document.head.appendChild(style);
-    return ()=>{ try{ document.head.removeChild(link); document.head.removeChild(style);}catch{} };
-  },[]);
-  return null;
-}
 
 // -------------------- Constantes & utilitaires --------------------
 const STORAGE_KEY = "raac_proms_v3";
@@ -275,7 +248,6 @@ export default function RaacPromsApp() {
       </Head>
       
       <div className="min-h-screen bg-neutral-50 text-neutral-900">
-        <BrandHead/>
         <header className="sticky top-0 z-10 border-b bg-white/80 backdrop-blur">
           <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 p-4">
             <div className="flex items-center gap-3">

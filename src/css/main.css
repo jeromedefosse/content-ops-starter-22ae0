@@ -4,6 +4,40 @@
 @tailwind components;
 @tailwind utilities;
 
+/* PCBS Brand Styles */
+:root { 
+  --pcbs-primary: #004D71; 
+}
+
+body { 
+  font-family: 'Quicksand', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; 
+}
+
+.text-pcbs { 
+  color: var(--pcbs-primary); 
+}
+
+.bg-pcbs { 
+  background-color: var(--pcbs-primary); 
+  color: #fff; 
+}
+
+.border-pcbs { 
+  border-color: var(--pcbs-primary); 
+}
+
+.btn-pcbs { 
+  background-color: var(--pcbs-primary); 
+  color: #fff; 
+  border-radius: 1rem; 
+  padding: 0.5rem 0.75rem; 
+  font-size: 0.875rem; 
+}
+
+.btn-pcbs:hover { 
+  filter: brightness(0.95); 
+}
+
 @layer base {
     body {
         @apply text-base;
