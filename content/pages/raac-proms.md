@@ -1,243 +1,908 @@
----
-title: RAAC PROMs - Suivi Patient
-slug: raac-proms
-sections:
-  - title:
-      text: RAAC PROMs - Suivi Patient
-      color: text-dark
-      styles:
-        self:
-          textAlign: center
-      type: TitleBlock
-    subtitle: Solution digitale de suivi des Patient Reported Outcome Measures
-    text: >
-      Plateforme médicale professionnelle développée pour la Polyclinique Côte Basque Sud.
-      Suivi complet des patients en chirurgie orthopédique avec questionnaires standardisés
-      Oxford et WOMAC, rappels automatiques et portail patient sécurisé.
-    actions:
-      - label: Accéder au système
-        url: /raac-proms
-        icon: arrowRight
-        iconPosition: right
-        style: primary
-        type: Button
-      - label: Documentation médicale
-        url: https://polyclinique-cotebasquesud.fr/la-polyclinique/
-        icon: arrowRight
-        iconPosition: right
-        style: secondary
-        type: Button
-    colors: bg-light-fg-dark
-    styles:
-      self:
-        padding:
-          - pt-32
-          - pb-32
-          - pl-4
-          - pr-4
-        alignItems: center
-        flexDirection: col
-        justifyContent: center
-      text:
-        textAlign: center
-      subtitle:
-        textAlign: center
-    type: GenericSection
-    backgroundImage:
-      type: BackgroundImage
-      url: /images/abstract-background.svg
-      backgroundSize: cover
-      backgroundPosition: center
-      backgroundRepeat: no-repeat
-      opacity: 5
-  - title:
-      text: Fonctionnalités Médicales
-      color: text-dark
-      styles:
-        self:
-          textAlign: center
-      type: TitleBlock
-    subtitle: Outils professionnels pour l'équipe soignante
-    items:
-      - title: Dossier Patient Numérique
-        subtitle: Gestion centralisée
-        text: >
-          Base de données sécurisée des patients avec informations médicales,
-          dates d'intervention chirurgicale et coordonnées pour le suivi post-opératoire.
-        image:
-          url: /images/icon1.svg
-          altText: Gestion patients
-          type: ImageBlock
-        colors: bg-neutralAlt-fg-dark
-        styles:
-          self:
-            padding:
-              - pt-8
-              - pl-8
-              - pb-8
-              - pr-8
-            borderRadius: x-large
-            flexDirection: row
-            textAlign: left
-        type: FeaturedItem
-      - title: Scores Oxford & WOMAC
-        subtitle: Évaluation clinique standardisée
-        text: >
-          Questionnaires validés scientifiquement : Oxford Hip/Knee Score (12 items)
-          et WOMAC (24 items) avec calcul automatique et suivi longitudinal.
-        image:
-          url: /images/icon2.svg
-          altText: Questionnaires médicaux
-          type: ImageBlock
-        colors: bg-neutralAlt-fg-dark
-        styles:
-          self:
-            padding:
-              - pt-8
-              - pl-8
-              - pb-8
-              - pr-8
-            borderRadius: x-large
-            flexDirection: row
-            textAlign: left
-        type: FeaturedItem
-      - title: Rappels Automatisés
-        subtitle: Communication patient optimisée
-        text: >
-          Système de rappels email automatiques avec modèles personnalisables,
-          export calendrier (.ics) et suivi des échéances par timepoint.
-        image:
-          url: /images/icon3.svg
-          altText: Rappels automatiques
-          type: ImageBlock
-        colors: bg-neutralAlt-fg-dark
-        styles:
-          self:
-            padding:
-              - pt-8
-              - pl-8
-              - pb-8
-              - pr-8
-            borderRadius: x-large
-            flexDirection: row
-            textAlign: left
-        type: FeaturedItem
-      - title: Portail Patient Sécurisé
-        subtitle: Accès patient autonome
-        text: >
-          Interface patient dédiée avec authentification sécurisée permettant
-          la consultation de l'évolution des scores et graphiques interactifs.
-        image:
-          url: /images/icon1.svg
-          altText: Portail patient
-          type: ImageBlock
-        colors: bg-neutralAlt-fg-dark
-        styles:
-          self:
-            padding:
-              - pt-8
-              - pl-8
-              - pb-8
-              - pr-8
-            borderRadius: x-large
-            flexDirection: row
-            textAlign: left
-        type: FeaturedItem
-      - title: Tableaux de Bord Médicaux
-        subtitle: Analytics et reporting
-        text: >
-          Statistiques avancées avec moyennes par timepoint, taux de complétude,
-          filtres par articulation et indicateurs de qualité des soins.
-        image:
-          url: /images/icon2.svg
-          altText: Statistiques médicales
-          type: ImageBlock
-        colors: bg-neutralAlt-fg-dark
-        styles:
-          self:
-            padding:
-              - pt-8
-              - pl-8
-              - pb-8
-              - pr-8
-            borderRadius: x-large
-            flexDirection: row
-            textAlign: left
-        type: FeaturedItem
-      - title: Export & Interopérabilité
-        subtitle: Intégration système
-        text: >
-          Export CSV complet pour analyses statistiques externes,
-          sauvegarde automatique et API d'intégration avec le SIH.
-        image:
-          url: /images/icon3.svg
-          altText: Export données
-          type: ImageBlock
-        colors: bg-neutralAlt-fg-dark
-        styles:
-          self:
-            padding:
-              - pt-8
-              - pl-8
-              - pb-8
-              - pr-8
-            borderRadius: x-large
-            flexDirection: row
-            textAlign: left
-        type: FeaturedItem
-    variant: two-col-grid
-    colors: bg-neutral-fg-dark
-    styles:
-      self:
-        padding:
-          - pt-16
-          - pl-16
-          - pb-16
-          - pr-16
-        justifyContent: center
-      subtitle:
-        textAlign: center
-    type: FeaturedItemsSection
-  - title:
-      text: Protocole RAAC Intégré
-      color: text-dark
-      styles:
-        self:
-          textAlign: center
-      type: TitleBlock
-    subtitle: Récupération Améliorée Après Chirurgie
-    text: >
-      Cette application s'intègre parfaitement dans le protocole RAAC de la Polyclinique
-      Côte Basque Sud, permettant un suivi standardisé et une amélioration continue
-      de la qualité des soins en chirurgie orthopédique.
-    actions:
-      - label: En savoir plus sur RAAC
-        url: https://polyclinique-cotebasquesud.fr/la-polyclinique/
-        icon: arrowRight
-        iconPosition: right
-        style: secondary
-        type: Button
-    colors: bg-light-fg-dark
-    styles:
-      self:
-        padding:
-          - pt-20
-          - pb-20
-          - pl-4
-          - pr-4
-        alignItems: center
-        flexDirection: col
-        justifyContent: center
-      text:
-        textAlign: center
-      subtitle:
-        textAlign: center
-    type: GenericSection
-seo:
-  metaTitle: RAAC PROMs - Polyclinique Côte Basque Sud
-  metaDescription: Système de suivi des Patient Reported Outcome Measures pour la chirurgie orthopédique - Polyclinique Côte Basque Sud. Questionnaires Oxford et WOMAC, rappels automatiques.
-  socialImage: /images/main-hero.jpg
-  type: Seo
-colors: bg-light-fg-dark
-type: PageLayout
----
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Roboto+Slab:wght@400;500;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* PCBS Brand Styles */
+:root { 
+  --pcbs-primary: #004d71;
+  --pcbs-secondary: #f08486;
+  --pcbs-accent: #ebf3f4;
+  --pcbs-success: #28A745;
+  --pcbs-warning: #FFC107;
+  --pcbs-error: #DC3545;
+  --pcbs-gray-50: #F5F5F5;
+  --pcbs-gray-100: #F2F5F7;
+  --pcbs-gray-200: #FFFFFF;
+  --pcbs-gray-300: #9d9d9c;
+  --pcbs-gray-400: #424242;
+  --pcbs-gray-500: #000000;
+  --pcbs-gray-600: #004d71;
+  --pcbs-gray-700: #334155;
+  --pcbs-gray-800: #1E293B;
+  --pcbs-gray-900: #0F172A;
+}
+
+body { 
+  font-family: 'Quicksand', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background-color: #F5F5F5;
+  font-weight: 400;
+  line-height: 1.7em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 600;
+  color: var(--pcbs-primary);
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 3.375rem;
+  line-height: 1.4em;
+}
+
+h2 {
+  font-size: 2.625rem;
+  line-height: 1.3em;
+}
+
+h3 {
+  font-size: 2.25rem;
+  line-height: 1.3em;
+}
+
+h4 {
+  font-size: 1.5625rem;
+  line-height: 1.2em;
+}
+
+.text-pcbs { 
+  color: var(--pcbs-primary); 
+}
+
+.text-pcbs-secondary {
+  color: var(--pcbs-gray-400);
+}
+
+.bg-pcbs { 
+  background-color: var(--pcbs-primary); 
+  color: #fff; 
+}
+
+.bg-pcbs-secondary {
+  background-color: #ebf3f4;
+  color: var(--pcbs-gray-400);
+}
+
+.bg-pcbs-gradient {
+  background: linear-gradient(135deg, var(--pcbs-primary) 0%, #003d5a 100%);
+  color: #fff;
+}
+
+.border-pcbs { 
+  border-color: var(--pcbs-primary); 
+}
+
+.btn-pcbs { 
+  background-color: var(--pcbs-primary); 
+  color: #fff; 
+  border-radius: 50px; 
+  padding: 20px 30px; 
+  font-size: 0.875rem; 
+  font-weight: inherit;
+  transition: all 0.2s ease;
+  border: 2px solid var(--pcbs-primary);
+  line-height: 1em;
+}
+
+.btn-pcbs:hover { 
+  background-color: var(--pcbs-accent);
+  border-color: var(--pcbs-accent);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 77, 113, 0.3);
+}
+
+.btn-pcbs-secondary {
+  background-color: transparent;
+  color: var(--pcbs-primary);
+  border: 2px solid var(--pcbs-primary);
+  border-radius: 50px;
+  padding: 20px 30px;
+  font-size: 0.875rem;
+  font-weight: inherit;
+  transition: all 0.2s ease;
+  line-height: 1em;
+}
+
+.btn-pcbs-secondary:hover {
+  background-color: var(--pcbs-primary);
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 77, 113, 0.3);
+}
+
+.card-pcbs {
+  background: #fff;
+  border-radius: 1rem;
+  border: 1px solid #dddddd;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
+}
+
+.card-pcbs:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
+}
+
+.input-pcbs {
+  border: 2px solid #dddddd;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  transition: all 0.2s ease;
+  background: #fff;
+}
+
+.input-pcbs:focus {
+  outline: none;
+  border-color: var(--pcbs-primary);
+  box-shadow: 0 0 0 3px rgba(0, 77, 113, 0.1);
+}
+
+.pcbs-header {
+  background-color: #ffffff;
+  border-bottom: 1px solid #dddddd;
+  box-shadow: 0px 2px 8px rgba(27, 32, 50, .08);
+}
+
+.pcbs-header-top {
+  background-color: var(--pcbs-primary);
+  color: #fff;
+  font-size: 0.875rem;
+  padding: 0.5rem 0;
+}
+
+.pcbs-logo {
+  max-height: 60px;
+  width: auto;
+}
+
+.pcbs-nav-link {
+  color: var(--pcbs-gray-400);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  padding: 0.5rem 1rem;
+}
+
+.pcbs-nav-link:hover {
+  color: var(--pcbs-primary);
+}
+
+.pcbs-nav-link.active {
+  color: var(--pcbs-primary);
+  border-bottom: 2px solid var(--pcbs-primary);
+}
+
+.pcbs-accordion {
+  border: 1px solid #dddddd;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.pcbs-accordion-header {
+  background-color: #f8f9fa;
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+  border-bottom: 1px solid #dddddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  color: var(--pcbs-primary);
+}
+
+.pcbs-accordion-header:hover {
+  background-color: #e9ecef;
+}
+
+.pcbs-accordion-content {
+  padding: 1.5rem;
+  background-color: #fff;
+}
+
+.pcbs-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.pcbs-info-card {
+  background: #fff;
+  border: 1px solid #dddddd;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.pcbs-info-card h4 {
+  color: var(--pcbs-primary);
+  margin-bottom: 1rem;
+  font-size: 1.125rem;
+}
+
+.pcbs-info-card .icon {
+  color: var(--pcbs-secondary);
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.pcbs-contact-info {
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.pcbs-contact-info a {
+  color: var(--pcbs-primary);
+  text-decoration: none;
+}
+
+.pcbs-contact-info a:hover {
+  text-decoration: underline;
+}
+
+.pcbs-table {
+  border-collapse: collapse;
+  width: 100%;
+  background: #fff;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.pcbs-table th {
+  background-color: #f8f9fa;
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: var(--pcbs-primary);
+  border-bottom: 2px solid #e9ecef;
+}
+
+.pcbs-table td {
+  padding: 1rem;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.pcbs-table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+.pcbs-dashboard-card {
+  background: #fff;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  border: 1px solid #e5e7eb;
+  transition: all 0.2s ease;
+}
+
+.pcbs-dashboard-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
+}
+
+.pcbs-questionnaire-progress {
+  background: linear-gradient(90deg, var(--pcbs-primary) 0%, var(--pcbs-secondary) 100%);
+  height: 8px;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.pcbs-question-option {
+  border: 2px solid #e5e7eb;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.pcbs-question-option:hover {
+  border-color: var(--pcbs-primary);
+  background-color: #f0f8ff;
+}
+
+.pcbs-question-option.selected {
+  border-color: var(--pcbs-primary);
+  background-color: var(--pcbs-accent);
+}
+
+.pcbs-nav-tab {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pcbs-nav-tab.active {
+  background-color: var(--pcbs-primary);
+  color: #fff;
+}
+
+.pcbs-nav-tab:not(.active) {
+  color: #6b7280;
+}
+
+.pcbs-nav-tab:not(.active):hover {
+  color: var(--pcbs-primary);
+  background-color: #f0f8ff;
+}
+
+.pcbs-metric-card {
+  background: #fff;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid var(--pcbs-primary);
+}
+
+.pcbs-patient-card {
+  background: #fff;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  border: 1px solid #e5e7eb;
+  transition: all 0.2s ease;
+}
+
+.pcbs-patient-card:hover {
+  border-color: var(--pcbs-primary);
+  box-shadow: 0 2px 8px rgba(0, 77, 113, 0.1);
+}
+
+.pcbs-alert {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  border-left: 4px solid;
+}
+
+.pcbs-alert.success {
+  background-color: #f0f9ff;
+  border-color: var(--pcbs-success);
+  color: #065f46;
+}
+
+.pcbs-alert.warning {
+  background-color: #fffbeb;
+  border-color: var(--pcbs-warning);
+  color: #92400e;
+}
+
+.pcbs-alert.error {
+  background-color: #fef2f2;
+  border-color: var(--pcbs-error);
+  color: #991b1b;
+}
+
+.pcbs-form-group {
+  margin-bottom: 1.5rem;
+}
+
+.pcbs-form-label {
+  display: block;
+  font-weight: 600;
+  color: var(--pcbs-primary);
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.pcbs-form-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+  font-size: 1rem;
+}
+
+.pcbs-form-input:focus {
+  outline: none;
+  border-color: var(--pcbs-primary);
+  box-shadow: 0 0 0 3px rgba(0, 77, 113, 0.1);
+}
+
+.pcbs-form-select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 0.5rem;
+  background-color: #fff;
+  transition: all 0.2s ease;
+  font-size: 1rem;
+}
+
+.pcbs-form-select:focus {
+  outline: none;
+  border-color: var(--pcbs-primary);
+  box-shadow: 0 0 0 3px rgba(0, 77, 113, 0.1);
+}
+
+.pcbs-timeline {
+  position: relative;
+  padding-left: 2rem;
+}
+
+.pcbs-timeline::before {
+  content: '';
+  position: absolute;
+  left: 0.75rem;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: var(--pcbs-primary);
+}
+
+.pcbs-timeline-item {
+  position: relative;
+  padding-bottom: 2rem;
+}
+
+.pcbs-timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -1.75rem;
+  top: 0.25rem;
+  width: 0.75rem;
+  height: 0.75rem;
+  background-color: var(--pcbs-primary);
+  border-radius: 50%;
+  border: 3px solid #fff;
+  box-shadow: 0 0 0 2px var(--pcbs-primary);
+}
+
+.pcbs-score-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background-color: var(--pcbs-primary);
+  color: #fff;
+}
+
+.pcbs-loading {
+  display: inline-block;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 50%;
+  border-top-color: var(--pcbs-primary);
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.pcbs-modal {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  padding: 1rem;
+}
+
+.pcbs-modal-content {
+  background: #fff;
+  border-radius: 1rem;
+  padding: 2rem;
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.pcbs-footer {
+  background-color: var(--pcbs-primary);
+  color: #fff;
+  padding: 3rem 0 1rem;
+}
+
+.pcbs-footer h4 {
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.pcbs-footer a {
+  color: #fff;
+  text-decoration: none;
+  opacity: 0.9;
+}
+
+.pcbs-footer a:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+.pcbs-social-icons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.pcbs-social-icons a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.pcbs-social-icons a:hover {
+  background-color: var(--pcbs-secondary);
+  transform: translateY(-2px);
+}
+
+.badge-success {
+  background-color: var(--pcbs-success);
+  color: #fff;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.badge-warning {
+  background-color: var(--pcbs-warning);
+  color: var(--pcbs-gray-800);
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.badge-error {
+  background-color: var(--pcbs-error);
+  color: #fff;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+@layer base {
+    body {
+        @apply text-base;
+    }
+    h1,
+    .h1,
+    h2,
+    .h2,
+    h3,
+    .h3,
+    h4,
+    .h4,
+    h5,
+    h6 {
+        @apply break-words;
+        line-height: 1.2;
+    }
+}
+
+@layer components {
+    .sb-markdown {
+        @apply leading-relaxed;
+        a {
+            @apply underline transition duration-200 ease-in;
+        }
+        a:hover {
+            @apply text-primary;
+        }
+        b,
+        strong {
+            @apply font-bold;
+        }
+        em {
+            @apply italic;
+        }
+        * + * {
+            margin-top: 1.5em;
+        }
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            margin-top: 3.5rem;
+            &:first-child {
+                margin-top: 0;
+            }
+        }
+        h1+h2,
+        h2+h3,
+        h3+h4,
+        h4+h5,
+        h5+h6 {
+            margin-top: 1.5rem;
+        }
+        ol {
+            @apply list-decimal;
+            padding-left: 1.25em;
+        }
+        ul {
+            @apply list-disc;
+            padding-left: 1.25em;
+        }
+        li > ul,
+        li > ol {
+            margin: 0;
+        }
+        li + li {
+            margin-top: 0.5rem;
+        }
+        blockquote {
+            @apply border-l-4 border-current;
+            font-size: 1.25em;
+            line-height: 1.4;
+            padding-left: 1.25em;
+            &:not(:first-child) {
+                margin-top: 2.5rem;
+            }
+            &:not(:last-child) {
+                margin-bottom: 2.5rem;
+            }
+        }
+        pre {
+            @apply border border-current overflow-x-auto leading-normal;
+            padding: 1.25em;
+        }
+        hr {
+            @apply bg-current border-0 h-px;
+            &:not(:first-child) {
+                margin-top: 2.5rem;
+            }
+            &:not(:last-child) {
+                margin-bottom: 2.5rem;
+            }
+        }
+        figcaption {
+            @apply leading-normal;
+            font-size: 0.875em;
+            margin: 0.5rem 0 0;
+        }
+        table {
+            @apply border border-current border-collapse text-left w-full;
+        }
+        caption {
+            @apply text-left;
+            font-size: 0.875em;
+            margin: 0 0 0.5rem;
+        }
+        th,
+        td {
+            @apply border-r border-b border-current;
+            padding: 0.5em;
+        }
+        th {
+            font-weight: bold;
+        }
+    }
+
+    /* Buttons */
+    .sb-component-button {
+        @apply inline-flex justify-center items-center text-center border transition duration-200 ease-in hover:-translate-y-1;
+    }
+
+    /* Links */
+    .sb-component-link {
+        @apply inline-flex justify-center items-center text-center transition duration-200 ease-linear;
+    }
+    .sb-component-link-primary {
+        @apply text-primary hover:underline;
+    }
+    .sb-component-link-secondary {
+        @apply text-current hover:text-primary;
+    }
+
+    /* Form controls */
+    option {
+        color: initial;
+    }
+    .sb-checkbox:checked + .sb-label:before {
+        content: '\2713';
+    }
+
+    /* Image gallery */
+    .sb-image-strip-track {
+        min-width: 160rem;
+    }
+    .sb-image-strip-content {
+        min-width: 80rem;
+    }
+
+    /* Carousel */
+    .sb-carousel-dot {
+        @apply w-4 h-4 cursor-pointer;
+    }
+
+    .sb-carousel-tab-title {
+        @apply cursor-pointer opacity-40 max-w-xs;
+        display: -webkit-box;
+        line-height: 1.5;
+        max-height: 1.5em;
+        overflow-y: hidden;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+    }
+    .sb-carousel-tab-title-active {
+        @apply opacity-100;
+    }
+
+    /* Color palettes */
+    .bg-light-fg-dark,
+    .sb-card.bg-light-fg-dark {
+        @apply text-dark bg-light;
+        .sb-input,
+        .sb-select,
+        .sb-textarea {
+            @apply placeholder-dark/50;
+        }
+        .sb-component-button-primary {
+            @apply bg-primary border-primary text-light;
+        }
+        .sb-component-button-secondary {
+            @apply border-dark text-dark;
+        }
+        .sb-image-strip-wrap {
+            &:before,
+            &:after {
+                @apply from-transparent to-light;
+            }
+        }
+        .sb-divider,
+        .sb-footer-bottom {
+            @apply border-neutral;
+        }
+        .sb-carousel-prev,
+        .sb-carousel-next {
+            @apply bg-dark text-light;
+        }
+        .sb-carousel-dot {
+            @apply bg-dark/20;
+        }
+        .sb-carousel-dot-active {
+            @apply bg-dark;
+        }
+    }
+    .bg-neutral-fg-dark,
+    .sb-card.bg-neutral-fg-dark {
+        @apply text-dark bg-neutral;
+        .sb-input,
+        .sb-select,
+        .sb-textarea {
+            @apply placeholder-dark/50;
+        }
+        .sb-component-button-primary {
+            @apply bg-primary border-primary text-light;
+        }
+        .sb-component-button-secondary {
+            @apply border-dark text-dark;
+        }
+        .sb-image-strip-wrap {
+            &:before,
+            &:after {
+                @apply from-transparent to-neutral;
+            }
+        }
+        .sb-divider,
+        .sb-footer-bottom {
+            @apply border-neutralAlt;
+        }
+        .sb-carousel-prev,
+        .sb-carousel-next {
+            @apply bg-dark text-light;
+        }
+        .sb-carousel-dot {
+            @apply bg-dark/20;
+        }
+        .sb-carousel-dot-active {
+            @apply bg-dark;
+        }
+    }
+    .bg-dark-fg-light,
+    .sb-card.bg-dark-fg-light {
+        @apply text-light bg-dark;
+        .sb-input,
+        .sb-select,
+        .sb-textarea {
+            @apply placeholder-light/50;
+        }
+        .sb-component-button-primary {
+            @apply bg-primary border-primary text-light;
+        }
+        .sb-component-button-secondary {
+            @apply border-light text-light;
+        }
+        .sb-image-strip-wrap {
+            &:before,
+            &:after {
+                @apply from-transparent to-dark;
+            }
+        }
+        .sb-divider,
+        .sb-footer-bottom {
+            @apply border-light/20;
+        }
+        .sb-carousel-prev,
+        .sb-carousel-next {
+            @apply bg-light text-dark;
+        }
+        .sb-carousel-dot {
+            @apply bg-light/20;
+        }
+        .sb-carousel-dot-active {
+            @apply bg-light;
+        }
+    }
+    /* Only for cards */
+    .bg-neutralAlt-fg-dark {
+        @apply text-dark bg-neutralAlt;
+        .sb-component-button-primary {
+            @apply bg-primary border-primary text-light;
+        }
+        .sb-component-button-secondary {
+            @apply border-dark text-dark;
+        }
+    }
+}
+
+@layer utilities {
+    .underline-line-through {
+        text-decoration-line: underline line-through
+    }
+    .sb-animate-slide-left {
+        animation-name: slideLeft;
+        animation-duration: var(--sb-slide-speed, 80s);
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+    }
+    @keyframes slideLeft {
+        from {
+            transform: translate3d(0,0,0)
+        }
+        to {
+            transform: translate3d(-50%,0,0)
+        }
+    }
+    .sb-animate-slide-right {
+        animation-name: slideRight;
+        animation-duration: var(--sb-slide-speed, 80s);
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+    }
+    @keyframes slideRight {
+        from {
+            transform: translate3d(-50%,0,0)
+        }
+        to {
+            transform: translate3d(0,0,0)
+        }
+    }
+}
