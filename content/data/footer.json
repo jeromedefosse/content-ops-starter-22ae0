@@ -1,33 +1,33 @@
 {
     "logo": {
         "url": "/images/logo-white.svg",
-        "altText": "Logo light",
+        "altText": "Polyclinique Côte Basque Sud",
         "type": "ImageBlock"
     },
-    "text": "A description of your brand",
+    "text": "Établissement de santé privé spécialisé en chirurgie orthopédique avec protocole RAAC",
     "primaryLinks": {
-        "title": "Product",
+        "title": "Services",
         "links": [
             {
-                "label": "Features",
-                "altText": "Features page",
-                "url": "/",
+                "label": "RAAC PROMs",
+                "altText": "Système de suivi patient",
+                "url": "/raac-proms",
                 "icon": "arrowRight",
                 "iconPosition": "right",
                 "style": "secondary",
                 "type": "Link"
             },
             {
-                "label": "Pricing",
-                "url": "/pricing",
+                "label": "Chirurgie orthopédique",
+                "url": "https://polyclinique-cotebasquesud.fr/la-polyclinique/",
                 "icon": "arrowRight",
                 "iconPosition": "right",
                 "style": "secondary",
                 "type": "Link"
             },
             {
-                "label": "Documentation",
-                "url": "/",
+                "label": "Protocole RAAC",
+                "url": "/raac-proms",
                 "icon": "arrowRight",
                 "iconPosition": "right",
                 "style": "secondary",
@@ -37,11 +37,11 @@
         "type": "FooterLinksGroup"
     },
     "secondaryLinks": {
-        "title": "Company",
+        "title": "Établissement",
         "links": [
             {
-                "label": "Careers",
-                "altText": "careers page",
+                "label": "Équipe médicale",
+                "altText": "Équipe médicale",
                 "url": "/careers",
                 "icon": "arrowRight",
                 "iconPosition": "right",
@@ -49,7 +49,7 @@
                 "type": "Link"
             },
             {
-                "label": "Blog",
+                "label": "Actualités",
                 "url": "/blog",
                 "icon": "arrowRight",
                 "iconPosition": "right",
@@ -61,49 +61,43 @@
     },
     "socialLinks": [
         {
-            "altText": "GitHub link",
-            "url": "https://github.com/netlify",
-            "icon": "github",
-            "type": "Social"
-        },
-        {
-            "altText": "Twitter link",
-            "url": "https://twitter.com/netlify",
-            "icon": "twitter",
-            "type": "Social"
-        },
-        {
-            "altText": "LinkedIn link",
-            "url": "https://www.linkedin.com/company/netlify",
-            "icon": "linkedin",
-            "type": "Social"
-        },
-        {
-            "altText": "Email link",
-            "url": "/",
+            "altText": "Site web officiel",
+            "url": "https://polyclinique-cotebasquesud.fr/",
             "icon": "mail",
+            "type": "Social"
+        },
+        {
+            "altText": "Contact",
+            "url": "https://polyclinique-cotebasquesud.fr/contact/",
+            "icon": "mail",
+            "type": "Social"
+        },
+        {
+            "altText": "Informations",
+            "url": "https://polyclinique-cotebasquesud.fr/la-polyclinique/",
+            "icon": "linkedin",
             "type": "Social"
         }
     ],
     "legalLinks": [
         {
-            "label": "Terms",
-            "url": "/",
+            "label": "Mentions légales",
+            "url": "https://polyclinique-cotebasquesud.fr/mentions-legales/",
             "icon": "arrowRight",
             "iconPosition": "right",
             "style": "secondary",
             "type": "Link"
         },
         {
-            "label": "Privacy",
-            "url": "/",
+            "label": "Confidentialité",
+            "url": "https://polyclinique-cotebasquesud.fr/politique-de-confidentialite/",
             "icon": "arrowRight",
             "iconPosition": "right",
             "style": "secondary",
             "type": "Link"
         }
     ],
-    "copyrightText": "Powered by [Netlify](https://www.netlify.com/)\n",
+    "copyrightText": "© 2025 [Polyclinique Côte Basque Sud](https://polyclinique-cotebasquesud.fr/) - Tous droits réservés\n",
     "colors": "bg-dark-fg-light",
     "type": "Footer"
 }

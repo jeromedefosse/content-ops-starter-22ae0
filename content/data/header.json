@@ -11,16 +11,16 @@
     },
     "primaryLinks": [
         {
-            "label": "Pricing",
-            "url": "/pricing",
+            "label": "RAAC PROMs",
+            "url": "/raac-proms",
             "icon": "arrowRight",
             "iconPosition": "right",
             "style": "secondary",
             "type": "Link"
         },
         {
-            "label": "Blog",
-            "altText": "Blog",
+            "label": "Actualités",
+            "altText": "Actualités médicales",
             "url": "/blog",
             "icon": "arrowRight",
             "iconPosition": "right",
@@ -28,8 +28,8 @@
             "type": "Link"
         },
         {
-            "label": "Careers",
-            "altText": "Careers page",
+            "label": "Équipe",
+            "altText": "Équipe médicale",
             "url": "/careers",
             "icon": "arrowRight",
             "iconPosition": "right",
@@ -37,28 +37,28 @@
             "type": "Link"
         },
         {
-            "label": "Dropdown",
-            "altText": "Dropdown",
+            "label": "Services",
+            "altText": "Services médicaux",
             "links": [
                 {
-                    "label": "Dropdown item",
-                    "url": "/",
+                    "label": "Chirurgie orthopédique",
+                    "url": "https://polyclinique-cotebasquesud.fr/la-polyclinique/",
                     "icon": "arrowRight",
                     "iconPosition": "right",
                     "style": "secondary",
                     "type": "Link"
                 },
                 {
-                    "label": "Dropdown item",
-                    "url": "/",
+                    "label": "Protocole RAAC",
+                    "url": "/raac-proms",
                     "icon": "arrowRight",
                     "iconPosition": "right",
                     "style": "secondary",
                     "type": "Link"
                 },
                 {
-                    "label": "Dropdown item",
-                    "url": "/",
+                    "label": "Suivi patient",
+                    "url": "/raac-proms",
                     "icon": "arrowRight",
                     "iconPosition": "right",
                     "style": "secondary",
@@ -71,17 +71,17 @@
     ],
     "secondaryLinks": [
         {
-            "label": "Sign up",
-            "altText": "Sign up",
-            "url": "https://app.netlify.com/signup",
+            "label": "Accès Médecin",
+            "altText": "Accès équipe médicale",
+            "url": "/raac-proms",
             "icon": "arrowRight",
             "iconPosition": "right",
             "style": "secondary",
             "type": "Button"
         },
         {
-            "label": "Log in",
-            "url": "/",
+            "label": "Portail Patient",
+            "url": "/raac-proms",
             "icon": "arrowRight",
             "iconPosition": "right",
             "style": "primary",

@@ -4,40 +4,40 @@ slug: /
 sections:
   - type: GenericSection
     title:
-      text: Unblock your team boost your time to production
+      text: RAAC PROMs - Suivi Patient Polyclinique Côte Basque Sud
       color: text-dark
       type: TitleBlock
-    subtitle: Subtitle goes here
+    subtitle: Solution digitale de suivi des Patient Reported Outcome Measures
     text: >
-      A Netlify Create website is a git repo that you own. Every code commit is
-      instantly reflected in the visual editor and since every visual edit is a
-      git commit, git workflows and collaboration just work.
+      Plateforme médicale professionnelle développée pour la Polyclinique Côte Basque Sud.
+      Suivi complet des patients en chirurgie orthopédique avec questionnaires standardisés
+      Oxford et WOMAC, rappels automatiques et portail patient sécurisé.
     actions:
-      - label: Get started
+      - label: Accéder au système RAAC
         altText: ''
-        url: /
+        url: /raac-proms
         showIcon: false
+        icon: arrowRight
+        iconPosition: right
+        style: primary
+        elementId: ''
+        type: Button
+      - label: Documentation médicale
+        altText: ''
+        url: https://polyclinique-cotebasquesud.fr/la-polyclinique/
+        showIcon: true
         icon: arrowRight
         iconPosition: right
         style: secondary
         elementId: ''
         type: Button
-      - label: See Tutorials
-        altText: ''
-        url: /
-        showIcon: true
-        icon: arrowRight
-        iconPosition: right
-        style: primary
-        elementId: ''
-        type: Link
     media:
       url: /images/main-hero.svg
-      altText: Unblock your team boost your time to production preview
+      altText: RAAC PROMs - Système de suivi patient
       elementId: ''
       type: ImageBlock
     badge:
-      label: This is a badge
+      label: Système Médical RAAC
       color: text-primary
       type: Badge
     elementId: ''
@@ -53,21 +53,20 @@ sections:
           - pr-16
   - type: FeaturedItemsSection
     title:
-      text: Key Benefits
+      text: Fonctionnalités Médicales
       color: text-dark
       styles:
         self:
           textAlign: center
       type: TitleBlock
-    subtitle: Subtitle goes here
+    subtitle: Outils professionnels pour l'équipe soignante
     items:
       - type: FeaturedItem
-        title: 500k
-        subtitle: Numbers Done
+        title: Dossier Patient Numérique
+        subtitle: Gestion centralisée
         text: >-
-          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-          accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae.
-          explicabo.
+          Base de données sécurisée des patients avec informations médicales,
+          dates d'intervention chirurgicale et coordonnées pour le suivi post-opératoire.
         actions: []
         elementId: null
         colors: bg-neutralAlt-fg-dark
@@ -84,21 +83,20 @@ sections:
             textAlign: left
         image:
           type: ImageBlock
-          altText: Lightning bolt symbol on red background
+          altText: Gestion patients
           elementId: ''
           url: /images/icon1.svg
           styles:
             self:
               borderRadius: x-large
-      - title: 20x
-        subtitle: The Job Stuff
+      - title: Scores Oxford & WOMAC
+        subtitle: Évaluation clinique standardisée
         text: >-
-          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-          accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae.
-          explicabo.
+          Questionnaires validés scientifiquement : Oxford Hip/Knee Score (12 items)
+          et WOMAC (24 items) avec calcul automatique et suivi longitudinal.
         image:
           url: /images/icon2.svg
-          altText: Featured icon two
+          altText: Questionnaires médicaux
           elementId: ''
           type: ImageBlock
         actions: []
@@ -115,15 +113,14 @@ sections:
             textAlign: left
             justifyContent: center
         type: FeaturedItem
-      - title: 200%
-        subtitle: Faster
+      - title: Rappels Automatisés
+        subtitle: Communication patient optimisée
         text: >-
-          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-          accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae.
-          explicabo.
+          Système de rappels email automatiques avec modèles personnalisables,
+          export calendrier (.ics) et suivi des échéances par timepoint.
         image:
           url: /images/icon3.svg
-          altText: Featured icon three
+          altText: Rappels automatiques
           elementId: ''
           type: ImageBlock
         actions: []
@@ -139,9 +136,9 @@ sections:
             flexDirection: row
         type: FeaturedItem
     actions:
-      - label: Get started
+      - label: Accéder au système
         altText: ''
-        url: /
+        url: /raac-proms
         showIcon: false
         icon: arrowRight
         iconPosition: right
@@ -149,7 +146,7 @@ sections:
         elementId: ''
         type: Button
     badge:
-      label: This is a badge
+      label: Système RAAC
       color: text-primary
       styles:
         self:
@@ -168,28 +165,28 @@ sections:
         justifyContent: center
       subtitle:
         textAlign: center
-  - subtitle: Award winning enterprises trust us
+  - subtitle: Partenaires de confiance en santé
     images:
       - url: /images/empathy-logo.svg
-        altText: Empathy logo
+        altText: Partenaire médical
         type: ImageBlock
       - url: /images/wellster-logo.svg
-        altText: Wellster logo
+        altText: Partenaire santé
         type: ImageBlock
       - url: /images/vise-logo.svg
-        altText: Vise logo
+        altText: Partenaire technologique
         type: ImageBlock
       - url: /images/telus-logo.svg
-        altText: Telus logo
+        altText: Partenaire médical
         type: ImageBlock
       - url: /images/contenful-logo.svg
-        altText: Contentful logo
+        altText: Partenaire technologique
         type: ImageBlock
       - url: /images/sanity-logo.svg
-        altText: Sanity logo
+        altText: Partenaire médical
         type: ImageBlock
       - url: /images/rangle-logo.svg
-        altText: Rangle logo
+        altText: Partenaire technologique
         type: ImageBlock
     motion: move-to-left
     colors: bg-light-fg-dark
@@ -229,18 +226,18 @@ sections:
           - pr-7
     type: DividerSection
   - title:
-      text: Grow your business 10x faster
+      text: Améliorer la qualité des soins
       color: text-dark
       styles:
         self:
           textAlign: center
       type: TitleBlock
-    subtitle: This is a subtitle
+    subtitle: Protocole RAAC intégré
     text: |-
-      Aenean eros ipsum, interdum quis dignissim non, sollicitudin vitae nisl.
-      Aenean vel aliquet elit, at blandit ipsum. Sed eleifend felis sit amet
-      erat molestie, hendrerit malesuada justo ultrices. Nunc volutpat at erat
-      vitae interdum. Ut nec massa eget lorem blandit condimentum et at risus.
+      Notre système RAAC PROMs s'intègre parfaitement dans le protocole de
+      Récupération Améliorée Après Chirurgie de la Polyclinique Côte Basque Sud,
+      permettant un suivi standardisé et une amélioration continue de la qualité
+      des soins en chirurgie orthopédique.
     media:
       title: Title of the video
       url: /images/placeholder-video.mp4
@@ -262,7 +259,7 @@ sections:
       loop: true
       muted: true
     badge:
-      label: Key Benefits
+      label: Protocole RAAC
       color: text-primary
       styles:
         self:
@@ -278,18 +275,17 @@ sections:
     type: GenericSection
   - type: GenericSection
     title:
-      text: Generic section with a video
+      text: Formation et Support
       color: text-dark
       styles:
         self:
           textAlign: left
       type: TitleBlock
-    subtitle: Section with a video subtitle
+    subtitle: Accompagnement de l'équipe médicale
     text: |-
-      Aenean eros ipsum, interdum quis dignissim non, sollicitudin vitae nisl.
-      Aenean vel aliquet elit, at blandit ipsum. Sed eleifend felis sit amet
-      erat molestie, hendrerit malesuada justo ultrices. Nunc volutpat at erat
-      vitae interdum. Ut nec massa eget lorem blandit condimentum et at risus.
+      Formation complète de l'équipe soignante à l'utilisation du système,
+      support technique dédié et documentation médicale pour optimiser
+      l'adoption et garantir la qualité du suivi patient.
     actions: []
     media:
       title: Title of the video
@@ -320,22 +316,22 @@ sections:
       subtitle:
         textAlign: left
   - title:
-      text: Social Media Management
+      text: Portail Patient Sécurisé
       color: text-dark
       type: TitleBlock
-    subtitle: Increase your reach
+    subtitle: Accès patient autonome
     text: >
-      A service that helps businesses to manage their social media accounts and
-      posts.
+      Interface patient dédiée avec authentification sécurisée permettant
+      la consultation de l'évolution des scores et graphiques interactifs.
     actions:
-      - label: Get started
-        url: /
+      - label: Voir le portail patient
+        url: /raac-proms?patient=demo&token=demo
         icon: arrowRight
         iconPosition: right
         style: secondary
         type: Button
-      - label: See Tutorials
-        url: /
+      - label: Documentation
+        url: https://polyclinique-cotebasquesud.fr/la-polyclinique/
         showIcon: true
         icon: arrowRight
         iconPosition: right
@@ -343,10 +339,10 @@ sections:
         type: Link
     media:
       url: /images/hero2.svg
-      altText: Fun feature preview
+      altText: Portail patient sécurisé
       type: ImageBlock
     badge:
-      label: This is a badge
+      label: Sécurisé
       color: text-primary
       type: Badge
     colors: bg-light-fg-dark
@@ -355,22 +351,22 @@ sections:
         alignItems: center
     type: GenericSection
   - title:
-      text: Business Consulting
+      text: Tableaux de Bord Médicaux
       color: text-dark
       type: TitleBlock
-    subtitle: Be in good company
+    subtitle: Analytics et reporting
     text: >
-      A service that provides advice and guidance to startups and small
-      businesses.
+      Statistiques avancées avec moyennes par timepoint, taux de complétude,
+      filtres par articulation et indicateurs de qualité des soins.
     actions:
-      - label: Get started
-        url: /
+      - label: Voir les statistiques
+        url: /raac-proms
         icon: arrowRight
         iconPosition: right
         style: secondary
         type: Button
-      - label: See Tutorials
-        url: /
+      - label: Export données
+        url: /raac-proms
         showIcon: true
         icon: arrowRight
         iconPosition: right
@@ -378,10 +374,10 @@ sections:
         type: Link
     media:
       url: /images/hero3.svg
-      altText: Dope design preview
+      altText: Tableaux de bord médicaux
       type: ImageBlock
     badge:
-      label: This is a badge
+      label: Analytics
       color: text-primary
       type: Badge
     colors: bg-light-fg-dark
@@ -589,22 +585,23 @@ sections:
       subtitle:
         textAlign: center
   - title:
-      text: List of features here
+      text: Fonctionnalités Avancées
       color: text-primary
       styles:
         self:
           textAlign: center
       type: TitleBlock
-    subtitle: Featured items section subtitle
+    subtitle: Outils complémentaires pour l'équipe médicale
     items:
       - title: Feature Item One
-        tagline: This is the tagline
-        subtitle: This is the item subtitle
+        tagline: Export & Interopérabilité
+        subtitle: Intégration système
         text: |
-          Follow the tutorial to build your first Netlify Create site.
+          Export CSV complet pour analyses statistiques externes,
+          sauvegarde automatique et API d'intégration avec le SIH.
         image:
           url: /images/abstract-feature1.svg
-          altText: Placeholder Image
+          altText: Export données
           styles:
             self:
               borderRadius: x-large
@@ -621,13 +618,14 @@ sections:
             flexDirection: col
         type: FeaturedItem
       - title: Feature Item Two
-        tagline: This is the tagline
-        subtitle: This is the item subtitle
+        tagline: Rappels Intelligents
+        subtitle: Communication automatisée
         text: |
-          Follow the tutorial to build your first awesome Netlify Create site.
+          Système de rappels email automatiques avec modèles personnalisables
+          et export calendrier pour une communication patient optimisée.
         image:
           url: /images/abstract-feature2.svg
-          altText: Placeholder image
+          altText: Rappels automatiques
           styles:
             self:
               borderRadius: x-large
@@ -644,13 +642,14 @@ sections:
             flexDirection: col
         type: FeaturedItem
       - title: Feature Item Three
-        tagline: This is the tagline
-        subtitle: This is the item subtitle
+        tagline: Suivi Longitudinal
+        subtitle: Évolution patient
         text: |
-          Learn from the tutorial and build your first awesome Netlify Create site.
+          Suivi complet de l'évolution des patients avec graphiques interactifs
+          et indicateurs de progression pour optimiser les soins.
         image:
           url: /images/abstract-feature1.svg
-          altText: Placeholder image
+          altText: Suivi patient
           styles:
             self:
               borderRadius: x-large
@@ -680,35 +679,34 @@ sections:
         textAlign: center
     type: FeaturedItemsSection
   - title:
-      text: Generic Section With A Form
+      text: Contact Équipe Médicale
       color: text-dark
       type: TitleBlock
-    subtitle: Section with a form subtitle
+    subtitle: Support et assistance technique
     text: |-
-      Aenean eros ipsum, interdum quis dignissim non, sollicitudin vitae nisl.
-      Aenean vel aliquet elit, at blandit ipsum. Sed eleifend felis sit amet
-      erat molestie, hendrerit malesuada justo ultrices. Nunc volutpat at erat
-      vitae interdum. Ut nec massa eget lorem blandit condimentum et at risus.
+      Pour toute question concernant le système RAAC PROMs, formation du personnel
+      ou support technique, notre équipe est à votre disposition pour vous accompagner
+      dans l'utilisation optimale de cette solution médicale.
     media:
       fields:
         - name: name
           label: Name
           hideLabel: true
-          placeholder: Your name
+          placeholder: Votre nom
           isRequired: true
           width: full
           type: TextFormControl
         - name: email
           label: Email
           hideLabel: true
-          placeholder: Your email
+          placeholder: Votre email professionnel
           isRequired: true
           width: full
           type: EmailFormControl
         - name: message
           label: Message
           hideLabel: true
-          placeholder: Your message
+          placeholder: Votre demande concernant le système RAAC
           width: full
           type: TextareaFormControl
       elementId: contact-form
@@ -726,21 +724,21 @@ sections:
       type: FormBlock
       submitButton:
         type: SubmitButtonFormControl
-        label: Submit
+        label: Envoyer la demande
         showIcon: false
         icon: arrowRight
         iconPosition: right
         style: primary
         elementId: null
     badge:
-      label: Contact Us
+      label: Support Médical
       color: text-primary
       type: Badge
     colors: bg-light-fg-dark
     type: GenericSection
 seo:
-  metaTitle: Home - Demo site
-  metaDescription: This demo site is built with Netlify Create.
+  metaTitle: RAAC PROMs - Polyclinique Côte Basque Sud
+  metaDescription: Système de suivi des Patient Reported Outcome Measures pour la chirurgie orthopédique - Polyclinique Côte Basque Sud.
   socialImage: /images/main-hero.jpg
   type: Seo
 type: PageLayout
